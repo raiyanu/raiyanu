@@ -1,7 +1,8 @@
 ## Hi there 👋
 
-<!--
-**raiyanu/raiyanu** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+**raiyanu** is a ✨ _special_ ✨ because he always committed to github and git 
+
+[![roadmap.sh](https://roadmap.sh/card/wide/64f21c72b128dce3cb9c3411?variant=light&roadmaps=full-stack%2Cjava%2Cjavascript%2Cfrontend)](https://roadmap.sh)
 
 Here are some ideas to get you started:
 
@@ -13,4 +14,3 @@ Here are some ideas to get you started:
 - 📫 How to reach me: ...
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
--->
