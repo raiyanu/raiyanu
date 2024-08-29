@@ -1,4 +1,4 @@
-# 👋 Hey there, I'm Raiyan Ahmed (a.k.a. Ray 🤳)!
+# 👋 Hey there, I'm Raiyan Ahmed
 
 <i style="display:block;text-align:center;font-size:1.5rem;"> 🚀 Versatile Developer | ⇄ JSON<sup>ist</sup> | 🌈 Dream Chaser | 🏡 Based in 127.0.0.1
 </i>
