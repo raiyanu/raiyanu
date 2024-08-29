@@ -9,7 +9,7 @@ Welcome to my little corner of the internet! I'm not your average developer - I'
 
 - 🧠 Full Stack Developer in training, because why limit myself to just one stack when I can have them all? I don't want peace, i want [problems](https://www.youtube.com/watch?v=OrqDZ5CP3cA) always
 - 🎓 Completed BSc in Computer Science During day Time, code wizard by night but now, I am Full Time Batman.
-- 💻 Turning caffeine into code since 2021 talking about dedicated time.
+- 💻 Turning caffeine into code since 2021 talk about dedicated time.
 - I live in-between those [JSON](https://www.json.org/)
 
 ### 🛠️ Tech Arsenal
