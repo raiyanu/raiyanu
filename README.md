@@ -45,10 +45,11 @@ I'm on a quest to land a life-changing job and create the next big thing. Think 
 
 ### 📫 Let's Connect!  *🌐 Social links*
 
-- 🔗 LinkedIn: [linkedin.com/in/c-raiyan](https://linkedin.com/in/c-raiyan) Don't worry i don't post with random insta-vid with AI gen captions...
-- 📧 Email: raiyan.c.me@gmail.com
-- 🐙 GitHub: [github.com/raiyanu](https://github.com/raiyanu)
-- [MonkeyType](https://monkeytype.com/profile/raiyan.c)
+- 🔗 LinkedIn: [linkedin.com/in/**c-raiyan**](https://linkedin.com/in/c-raiyan) Don't worry i don't post with random insta-vid with AI gen captions...
+- 📧 Email: **raiyan.c.me**@gmail.com
+- 🐙 GitHub: [github.com/**raiyanu**](https://github.com/raiyanu)
+- 📦 DockerHub: [hub.docker.com/u/**raiyanu**](https://hub.docker.com/u/raiyanu))
+- ⌨ : [MonkeyType](https://monkeytype.com/profile/raiyan.c)
 - ...
 *Oh yeah! I am not grinding followers or stars*
 
