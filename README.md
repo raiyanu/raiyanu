@@ -5,6 +5,8 @@
 
 Welcome to my little corner of the internet! I'm not your average developer - I'm more a guy who would spend time more in making adblocker than making ads.🤞
 
+> also this repository also work as my [portfolio](https://raiyanu.github.io/)
+
 ### 🎭 About Me
 
 - 🧠 Full Stack Developer in training, because why limit myself to just one stack when I can have them all? I don't want peace, i want [problems](https://www.youtube.com/watch?v=OrqDZ5CP3cA) always
@@ -18,10 +20,10 @@ Welcome to my little corner of the internet! I'm not your average developer - I'
 - 🔧 React, MongoDB, Git - Because one tool is never enough
 - 🎨 Figma, Adobe XD, Canva - Making the web pretty, one pixel at a time. Ahem! penpot and lunacy can be in list While Adobe XD can leave.
 
-### 📚 Currently I am Learning:
+### 📚 Currently I am Learning
 
 - PostgreSQL - without relation, everyone is stranger to each other
-- Java - Just for DSA and LeetCode Grinding to Achieve ratio of 100:75:50 
+- Java - Just for DSA and LeetCode Grinding to Achieve ratio of 100:75:50
 - JS - It has no destination aye
 
 ### 🚀 Mission Impossible
