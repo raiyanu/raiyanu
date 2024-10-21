@@ -1,13 +1,12 @@
-import { Camera } from "lucide-react";
 import Navbar from "./components/Navbar";
+import Hero from "./section/Hero";
 
 export default function Home() {
   return (
     <>
-      <div className="relative pt-4">
+      <div className=" max-md:pb-8 md:pt-4 bg-slate-100 min-h-screen">
         <Navbar />
-        <Camera size="64" />
-        <h1> hey there </h1>
+        <Hero />
       </div>
     </>
   );
