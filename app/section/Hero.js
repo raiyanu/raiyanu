@@ -31,7 +31,7 @@ export default function Hero() {
                     $ echo HI, THERE
                 </p>
                 <p className="text-xl bg-slate-100 w-fit  pt-1 -mb-2 px-1 text-red-400">
-                    It's
+                    It{"'"}s
                 </p>
                 <h1 className="text-6xl md:text-7xl font-extrabold">Raiyan Ahmed</h1>
                 <div className="text-2xl md:text-3xl font-extralight tracking-wider z-10">
@@ -64,7 +64,7 @@ export default function Hero() {
                         }}
                     >
                         <p onMouseEnter={handleMaskEnter} onMouseLeave={handleMaskLeave}>
-                            There was a mask here but now it's gone :{"("}
+                            There was a mask here but now it{"'"}s gone :{"("}
                             But you can still hover over me to see the magic! Thus I am a
                             mask, a mask of the past.
                         </p>
