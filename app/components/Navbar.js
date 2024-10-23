@@ -2,10 +2,21 @@
 import { LucideOctagon } from "lucide-react";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import NavigationMenu from "./NavigationMenu";
+import { delay, motion } from "framer-motion";
+
+const links = [
+	{ href: "/home", title: "Home" },
+	{ href: "/about", title: "About" },
+	{ href: "/contact", title: "Contact" },
+	{ href: "/home", title: "Home" },
+	{ href: "/about", title: "About" },
+	{ href: "/contact", title: "Contact" },
+];
 
 const MyHeader = styled.header`
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	gap: 1rem;
 	position: fixed;
 	top: 0;
@@ -14,9 +25,11 @@ const MyHeader = styled.header`
 	transform: translateX(-50%);
 	background-color: #fc8181;
 	width: fit-content;
-	padding: 0.375rem 1.25rem;
+	min-width: 30%;
+	padding: 0.375rem 3rem;
 	border-bottom-left-radius: 1rem;
 	border-bottom-right-radius: 1rem;
+	z-index: 3;
 	&::before {
 		content: "";
 		position: absolute;
@@ -42,6 +55,7 @@ const MyHeader = styled.header`
 		box-shadow: 0 -25px 0 0 rgba(255, 0, 0, 0.5);
 	}
 	@media (max-width: 768px) {
+		align-items: center;
 		gap: 0.5rem;
 		padding: 0.375rem 0.75rem;
 		width: 90%;
@@ -51,7 +65,8 @@ const MyHeader = styled.header`
 		top: unset;
 		bottom: 0;
 		position: fixed;
-		justify-content: space-around;
+		justify-content: space-between;
+		padding-inline: 2rem;
 		&::before {
 			display: none;
 		}
@@ -64,12 +79,53 @@ export default function Navbar() {
 	return (
 		<MyHeader>
 			<LucideOctagon size={24} />
-			<nav className="flex gap-0.5 md:gap-3 ">
-				<NavLink href={"/home"} text="Home" />
-				<NavLink href={"/about"} text="About" />
-				<NavLink href={"/contact"} text="Contact" />
-			</nav>
+			<NavigationMenu text="Menu" />
 		</MyHeader>
+	);
+}
+
+const LinkVariants = {
+	initial: {
+		opacity: 0,
+		rotateX: 90,
+		translateY: 80,
+		translateX: -20,
+	},
+	enter: (index) => ({
+		opacity: 1,
+		transition: {
+			delay: 0.5 + index * 0.1,
+			opacity: { duration: 0.35 },
+		},
+		rotateX: 0,
+		translateY: 0,
+		translateX: -0,
+	}),
+	exit: {
+		opacity: 0,
+		delay: 0.3,
+	},
+};
+
+export function NavLinkList() {
+	return (
+		<>
+			{links.map((link, index) => {
+				return (
+					<motion.div
+						key={index}
+						variants={LinkVariants}
+						custom={index}
+						initial="initial"
+						animate="enter"
+						exit="exit"
+						style={{ perspective: "120px", perspectiveOrigin: "bottom" }}
+					>
+						<NavLink key={index} href={link.href} text={link.title} />
+					</motion.div>
+				);
+			})}
+		</>
 	);
 }
 
@@ -87,4 +143,6 @@ const NavLinkStyled = styled.a`
 		background-color: #000;
 		color: #fff;
 	}
+	text-transform: uppercase;
+	font-weight: 600;
 `;

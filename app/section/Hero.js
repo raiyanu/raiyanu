@@ -34,7 +34,7 @@ export default function Hero() {
                     It{"'"}s
                 </p>
                 <h1 className="text-6xl md:text-7xl font-extrabold">Raiyan Ahmed</h1>
-                <div className="text-2xl md:text-3xl font-extralight tracking-wider z-10">
+                <div className="text-2xl md:text-3xl font-extralight tracking-wider">
                     <span>Web Developer & Gamer</span>
                 </div>
                 <div className="flex justify-center items-center gap-3 my-4">
@@ -52,7 +52,7 @@ export default function Hero() {
                     </a>
                 </div>
                 <div
-                    className="border-4 relative h-[300px]"
+                    className="relative h-[300px] overflow-hidden"
                     onMouseEnter={handleMouseEntryOnBorder}
                     onMouseLeave={handleMouseExitOnBorder}
                 >
@@ -62,6 +62,12 @@ export default function Hero() {
                             WebkitMaskPosition: `${x - maskSize / 2}px ${y - maskSize / 2}px`,
                             maskSize: `${maskSize}px`,
                         }}
+                        transition={
+                            {
+                                damping: 10,
+                                duration: 0.2,
+                            }
+                        }
                     >
                         <p onMouseEnter={handleMaskEnter} onMouseLeave={handleMaskLeave}>
                             There was a mask here but now it{"'"}s gone :{"("}
@@ -95,7 +101,7 @@ export default function Hero() {
                     minim veniam, quis
                 </p>
                 <div className="flex flex-col items-start">
-                    <MyDetails className="mb-4">
+                    <MyDetails className="mb-4 w-full ">
                         <summary className="text-xl font-bold">About Me</summary>
                         <p className="text-base text-gray-600 py-4">
                             I am a passionate web developer with a love for creating dynamic
@@ -153,7 +159,7 @@ const Mask = styled(motion.div)`
 	transition: all 50ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	background: rgba(58, 9, 190, 0);
 	${center}
-	z-index: 1;
+	z-index: 2;
 `;
 const MaskBody = styled(motion.div)`
 	position: absolute;
@@ -164,10 +170,38 @@ const MaskBody = styled(motion.div)`
 	width: 100%;
 	color: rgba(255, 0, 0, 0.7);
 `;
-const MyDetails = styled.details`
+
+const SlideIn = styled(motion.details)`
+	z-index: 1;
+	transition: all 1s ease-in-out;
+	position: relative;
+    overflow: hidden;
+    padding-block: 0.75rem;
+	&::after {
+		content: " ";
+		position: absolute;
+		top: 0;
+		left: 0;
+		color: #fff;
+		background-color: #000;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+        transition: all 0.5s ease-in-out;
+		transform: translateX(-100%);
+	}
+	&:hover::after  {
+		transform: translateX(0%);
+	}
+`;
+
+const MyDetails = styled(SlideIn)`
 	margin-bottom: 1rem;
 	width: 100%;
 	position: relative;
+    &:hover  {
+		color: #fff;
+	}
 	summary {
 		border-bottom: 2px solid #000;
 		cursor: pointer;
@@ -199,6 +233,18 @@ const MyDetails = styled.details`
 		position: absolute;
 		right: 20px;
 		top: 2px;
+	}
+
+	&::after {
+		content: " ";
+		position: absolute;
+		top: 0;
+		left: 0;
+		color: #fff;
+		background-color: #000;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
 	}
 `;
 
