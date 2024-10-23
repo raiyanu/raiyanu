@@ -1,29 +1,81 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
+import WordCloud from "../components/WordCloud";
+import useMousePosition from "../components/useMousePosition";
+import { motion } from "framer-motion";
 
 export default function Hero() {
+    const maskRef = useRef(null);
+    const paraRef = useRef(null);
+    const [maskSize, setMaskSize] = useState(30);
+    const { x, y } = useMousePosition({ maskRef, paraRef });
+    const handleMaskEnter = () => {
+        setMaskSize(300);
+    };
+    const handleMaskLeave = () => {
+        setMaskSize(30);
+    };
+    const handleMouseEntryOnBorder = () => {
+        maskRef.current.style.background = "rgba(58, 9, 190, 1)";
+    };
+    const handleMouseExitOnBorder = () => {
+        maskRef.current.style.background = "rgba(58, 9, 190, 0)";
+    };
+
     return (
         <div className="py-2 md:pt-5 flex flex-col md:flex-row flex-wrap lg:flex-nowrap justify-center">
-            <div className="my-4 mx-2 min-w-[72.5%] lg:px-10">
+            <div className="mb-4 mx-2 min-w-[72.5%] lg:px-10">
                 <p className="text-2xl bg-slate-100 w-fit  py-1 md:px-2 md:py-3">
                     $ echo HI, THERE
                 </p>
+                <p className="text-xl bg-slate-100 w-fit  pt-1 -mb-2 px-1 text-red-400">
+                    It's
+                </p>
                 <h1 className="text-6xl md:text-7xl font-extrabold">Raiyan Ahmed</h1>
-                <div className="text-2xl md:text-3xl font-extralight tracking-wider">
+                <div className="text-2xl md:text-3xl font-extralight tracking-wider z-10">
                     <span>Web Developer & Gamer</span>
                 </div>
-                <div className="h-[500px] w-[300px] block ml-auto mr-4 mt-2 overflow-hidden min-w-[50%] bg-fuchsia-300 lg:mr-28">
-                    <ImageEffect className="">
-                        <Image
-                            src="/person.jpg"
-                            alt="my pic"
-                            height={400}
-                            width={300}
-                            className="object-cover h-full min-w-full"
-                        />
-                    </ImageEffect>
+                <div className="flex justify-center items-center gap-3 my-4">
+                    <a
+                        href="#"
+                        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                    >
+                        Hire Me
+                    </a>
+                    <a
+                        href="#"
+                        className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300"
+                    >
+                        View Portfolio
+                    </a>
+                </div>
+                <div
+                    className="border-4 relative h-[300px]"
+                    onMouseEnter={handleMouseEntryOnBorder}
+                    onMouseLeave={handleMouseExitOnBorder}
+                >
+                    <Mask
+                        ref={maskRef}
+                        animate={{
+                            WebkitMaskPosition: `${x - maskSize / 2}px ${y - maskSize / 2}px`,
+                            maskSize: `${maskSize}px`,
+                        }}
+                    >
+                        <p onMouseEnter={handleMaskEnter} onMouseLeave={handleMaskLeave}>
+                            There was a mask here but now it's gone :{"("}
+                            But you can still hover over me to see the magic! Thus I am a
+                            mask, a mask of the past.
+                        </p>
+                    </Mask>
+                    <MaskBody ref={paraRef}>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                            enim ad minim veniam, quis nostrud.
+                        </p>
+                    </MaskBody>
                 </div>
             </div>
             <div className="my-4 mx-2 min-w-[22.5%] max-md:p-[1rem] overflow-y-scroll content-center">
@@ -81,6 +133,37 @@ export default function Hero() {
     );
 }
 
+const center = `
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+const Mask = styled(motion.div)`
+	position: absolute;
+	mask-image: url("/mask.svg");
+	mask-repeat: no-repeat;
+	color: #fff;
+	overflow: hidden;
+	position: relative;
+	height: 100%;
+	width: 100%;
+	mask-position: 50%;
+	color: black;
+	cursor: pointer;
+	transition: all 50ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	background: rgba(58, 9, 190, 0);
+	${center}
+	z-index: 1;
+`;
+const MaskBody = styled(motion.div)`
+	position: absolute;
+	top: 0;
+	left: 0;
+	${center}
+	height: 100%;
+	width: 100%;
+	color: rgba(255, 0, 0, 0.7);
+`;
 const MyDetails = styled.details`
 	margin-bottom: 1rem;
 	width: 100%;
@@ -105,14 +188,17 @@ const MyDetails = styled.details`
 			margin-top: 0px;
 		}
 	}
-	summary::after {
-		content: ">";
+	& > summary::after {
+		content: "›";
 		position: absolute;
 		right: 20px;
 		top: 2px;
 	}
-	summary[open] summary::after {
-		content: "v";
+	&[open] > summary::after {
+		content: "⌄";
+		position: absolute;
+		right: 20px;
+		top: 2px;
 	}
 `;
 
@@ -134,15 +220,27 @@ const QubeText = styled.a`
 `;
 
 const ImageEffect = styled.div`
-	transition: transform 0.3s;
 	border-radius: 5px;
 	height: 100%;
 	width: 100%;
 	overflow: clip;
-	img {
-		z-index: -1;
-	}
-	&:hover {
-		// transform: scale(1);
-	}
 `;
+
+{
+    /* <div className="h-fit border-4 flex">
+                    <div className="h-[600px] w-2/5 block overflow-hidden min-w-[50%] bg-fuchsia-300">
+                        <WordCloud className="w-full" />
+                    </div>
+                    <div className="h-[600px] w-3/5 block overflow-hidden min-w-[50%] -mt-5  bg-fuchsia-300">
+                        <ImageEffect className="">
+                            <img
+                                src="/person.jpg"
+                                alt="my pic"
+                                height={500}
+                                width={300}
+                                className="object-cover h-full min-w-full"
+                            />
+                        </ImageEffect>
+                    </div>
+                </div> */
+}
