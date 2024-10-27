@@ -14,7 +14,6 @@ export default function useMousePosition({ maskRef, paraRef }) {
 
         if (!maskElement || !paraElement) return;
 
-
         const handleMaskMove = (e) => {
             const maskPos = maskElement.getBoundingClientRect();
             const relativeX = e.clientX - maskPos.left;
@@ -22,17 +21,14 @@ export default function useMousePosition({ maskRef, paraRef }) {
             let pos = {
                 x: relativeX,
                 y: relativeY,
-            }
-            console.log(pos);
+            };
             setMousePos(pos);
         };
 
         maskElement.addEventListener("mousemove", handleMaskMove);
 
         return () => {
-
             maskElement.removeEventListener("mousemove", handleMaskMove);
-
         };
     }, [maskRef, paraRef, maskHovered, paraHovered]);
 
