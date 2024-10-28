@@ -10,6 +10,21 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary: {
+          bg: "var(--primary-bg)",
+          content: "var(--primary-content)",
+        },
+        secondary: {
+          bg: "var(--secondary-bg)",
+          content: "var(--secondary-content)",
+        },
+        accent: "var(--accent)",
+        light: {
+          bg: "var(--light-bg)",
+        },
+        muted: {
+          content: "var(--muted-content)",
+        },
       },
     },
   },

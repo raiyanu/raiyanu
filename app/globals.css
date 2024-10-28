@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+	/* Primary Colors */
+	--primary-bg: #45496a; /* Dark Background, good for main sections */
+	--primary-content: #7d8bae; /* Content text, readable on light/dark backgrounds */
+
+	/* Secondary Colors */
+	--secondary-bg: #f1b2b2; /* Soft Background, suitable for lighter sections or cards */
+	--secondary-content: #e8ccc7; /* Muted Content, pairs well with secondary background */
+
+	/* Accent Colors */
+	--accent: #e5857b; /* Highlight color, good for buttons, links, and call-to-action elements */
+
+	/* Additional Colors */
+	--light-bg: #ffffff; /* White background for clean sections */
+	--muted-content: #999999; /* Muted text for less emphasis, ideal for secondary text */
+}

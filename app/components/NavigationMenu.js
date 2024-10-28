@@ -28,7 +28,7 @@ export default function NavigationMenu({ text }) {
 		<>
 			<StyledButton onClick={() => setIsOpen(!isOpen)}>
 				<motion.div
-					className={`fixed right-0 bottom-0  bg-sky-200 rounded-md h-[480px] w-[330px] max-w-[70vw] lg:bottom-[unset] p-4 pb-10 lg:pb-0 lg:pt-10 lg:top-0 lg:right-10`}
+					className={`fixed right-0 bottom-0  bg-secondary-content rounded-md h-[480px] w-[330px] max-w-[70vw] lg:bottom-[unset] p-4 pb-10 lg:pb-0 lg:pt-10 lg:top-0 lg:right-10`}
 					variants={variants}
 					initial="closed"
 					animate={isOpen ? "open" : "closed"}
@@ -48,10 +48,8 @@ export default function NavigationMenu({ text }) {
 					<motion.div
 						className={`${isOpen ? "block" : "hidden"} w-full h-full`}
 					>
-						<div className="flex items-start justify-center flex-col text-2xl gap-3">
-							<AnimatePresence>
-								{isOpen && <NavLinkList />}
-							</AnimatePresence>
+						<div className="flex items-start justify-center flex-col text-2xl">
+							<AnimatePresence>{isOpen && <NavLinkList />}</AnimatePresence>
 						</div>
 					</motion.div>
 				</motion.div>
@@ -66,11 +64,13 @@ export default function NavigationMenu({ text }) {
 							stiffness: 100,
 							duration: 0.5,
 						}}
+						className="*:rounded-xl secondary-bg"
 					>
 						<motion.div
 							animate={{
 								rotateX: isOpen ? 90 : 0,
 							}}
+							className=""
 						>
 							{text}
 						</motion.div>
@@ -78,6 +78,7 @@ export default function NavigationMenu({ text }) {
 							animate={{
 								rotateX: isOpen ? 0 : 180,
 							}}
+							className="bg-primary-bg text-secondary-content "
 						>
 							Close
 						</motion.div>
@@ -93,14 +94,9 @@ const SlidingTwoElement = styled(motion.div)`
 	transition: background-color 0.3s;
 	position: relative;
 	height: 30px;
-	&:hover {
-		background-color: #f55;
-	}
 	& > * {
 		width: 100%;
 		height: 100%;
-		color: #000;
-		background-color: #fff;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -112,19 +108,16 @@ const SlidingTwoElement = styled(motion.div)`
 		position: absolute;
 		top: 100%;
 		left: 0;
-		color: #fff;
-		background-color: #000;
 	}
 `;
 
 const StyledButton = styled.button`
-	color: #000;
+	color: var(bg-secondary-content);
 	border: none;
 	border-radius: 25px;
 	cursor: pointer;
 	position: relative;
 	height: 30px;
 	width: 100px;
-	background-color: #fff;
 	z-index: 3;
 `;

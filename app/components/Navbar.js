@@ -1,5 +1,5 @@
 "use client";
-import { LucideOctagon } from "lucide-react";
+import { Origami } from "lucide-react";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import NavigationMenu from "./NavigationMenu";
@@ -23,7 +23,7 @@ const MyHeader = styled.header`
 	left: 50%;
 	right: 50%;
 	transform: translateX(-50%);
-	background-color: #fc8181;
+	background-color: var(--light-bg);
 	width: fit-content;
 	min-width: 30%;
 	padding: 0.375rem 3rem;
@@ -78,7 +78,7 @@ const MyHeader = styled.header`
 export default function Navbar() {
 	return (
 		<MyHeader>
-			<LucideOctagon size={24} />
+			<Origami />
 			<NavigationMenu text="Menu" />
 		</MyHeader>
 	);
@@ -110,21 +110,36 @@ const LinkVariants = {
 export function NavLinkList() {
 	return (
 		<>
-			{links.map((link, index) => {
-				return (
-					<motion.div
-						key={index}
-						variants={LinkVariants}
-						custom={index}
-						initial="initial"
-						animate="enter"
-						exit="exit"
-						style={{ perspective: "120px", perspectiveOrigin: "bottom" }}
-					>
-						<NavLink key={index} href={link.href} text={link.title} />
-					</motion.div>
-				);
-			})}
+			<motion.div
+				style={{
+					display: "block",
+					width: "max-content",
+					width: "100%",
+				}}
+			>
+
+				{links.map((link, index) => {
+					return (
+						<motion.div
+							key={index}
+							variants={LinkVariants}
+							custom={index}
+							initial="initial"
+							animate="enter"
+							exit="exit"
+							style={{
+								perspective: "120px",
+								perspectiveOrigin: "bottom",
+								display: "block",
+								width: "max-content",
+								width: "100%",
+							}}
+						>
+							<NavLink key={index} href={link.href} text={link.title} />
+						</motion.div>
+					);
+				})}
+			</motion.div>
 		</>
 	);
 }
@@ -136,13 +151,40 @@ export function NavLink({ href, text }) {
 }
 
 const NavLinkStyled = styled.a`
-	color: #000;
-	padding: 0.075rem 1.25rem;
-	border-radius: 0.25rem;
+	color: var(--primary-bg);
+	padding: 0.35rem 1.25rem;
 	&:hover {
-		background-color: #000;
-		color: #fff;
+		// background-color: var(--primary-content);
+		color: var(--secondary-bg);
 	}
+	text-align: left;
+	transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out,
+		height 0.25s ease-in-out;
 	text-transform: uppercase;
 	font-weight: 600;
+	position: relative;
+	display: block;
+	width: full;
+	&::after {
+		content: "";
+		display: block;
+		position: absolute;
+		height: 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		background: var(--primary-bg);
+		transition: height 0.25s ease;
+		z-index: -1;
+		transition-delay: 0ms;
+	}
+	&:hover::after {
+		height: 100%;
+		transition-delay: 200ms;
+		bottom: unset;
+		top: 0;
+	}
+	&:hover &::not(:hover) {
+		// background-color: var(--primary-bg);
+	}
 `;
