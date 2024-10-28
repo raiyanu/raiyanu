@@ -1,8 +1,12 @@
 "use client";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./section/Hero";
+import LenisScroll from "./components/LenisScroll";
+
 import { motion, useScroll, useTransform } from "framer-motion";
+
 
 export default function Home() {
   const spanref = useRef(null);
@@ -12,30 +16,55 @@ export default function Home() {
     offset: ["start start", "end end"],
   });
   useEffect(() => {
-    console.log("scrollYProgress", scrollYProgress);
-    spanref.current.innerHTML = scrollYProgress.y;
-  }, [scrollYProgress])
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+    console.log("width", width);
+  }, [scrollYProgress]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+  const filter = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["brightness(100%)", "brightness(50%)"]
+  );
+  const width = useTransform(scrollYProgress, [0, 1], ["40%", "100%"]);
   return (
     <>
-      <div className=" max-md:pb-8 md:pt-4 bg-slate-100 min-h-screen">
-        <Navbar />
-        <div className="flex *:flex-1 h-fit">
-          <main className="bg-slate-400 flex p-3 flex-row relative" ref={containerRef} >
-            <motion.div style={{ scale }} className="container mx-auto bg-slate-950 w-1/3 h-screen sticky text-white top-0 border-4 border-white ">
-              {"-" + scrollYProgress.x + " : " + scrollYProgress.y + "-"}
-              <span className="text-red-500" ref={spanref}></span>
-            </motion.div>
-            <div className="container mx-auto bg-red-950 *:border-2 *:border-green-700 w-4/6 sticky text-white " >
-              <Hero className="h-screen" />
-              <Hero className="h-screen" />
-            </div>
+      <LenisScroll>
+        <div className=" bg-slate-100 min-h-screen">
+          <Navbar />
+          <div className="flex *:flex-1 h-fit flex-col">
+            <main
+              className="bg-slate-400 flex flex-col lg:flex-row relative"
+              ref={containerRef}
+            >
+              <div className="  w-1/3 h-screen sticky  top-0  border-white flex-1 max-lg:left-1/2 max-lg:right-1/2 max-lg:w-full overflow-hidden">
+                <motion.div
+                  style={{ scale, filter }}
+                  className="w-full max-w-[100vw] h-full "
+                >
+                  <Image
+                    src="/person.jpg"
+                    width={300}
+                    height={500}
+                    className="w-full overflow-hidden h-full object-cover bg-fixed"
+                    alt="my pic"
+                  />
+                </motion.div>
+              </div>
+              <motion.div
+                style={{ width }}
+                className=" mx-auto max-lg:!w-full  sticky text-white flex-shrink-0 basis-auto grow "
+              >
+                <Hero className="h-screen" />
+                <Hero className="h-screen" />
+              </motion.div>
+            </main>
+            <Hero className="h-screen" />
+            <Hero className="h-screen" />
+            <Hero className="h-screen" />
 
-          </main>
+          </div>
+          {/* <Hero /> */}
         </div>
-        {/* <Hero /> */}
-      </div>
-
+      </LenisScroll>
     </>
   );
 }

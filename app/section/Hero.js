@@ -25,7 +25,7 @@ export default function Hero() {
     };
 
     return (
-        <div className="py-2 md:pt-5 flex flex-col md:flex-row flex-wrap lg:flex-nowrap justify-center">
+        <div className="container py-2 md:pt-5 flex flex-col md:flex-row flex-wrap lg:flex-nowrap justify-center">
             <div className="mb-4 mx-2 min-w-[72.5%] lg:px-10">
                 <p className="text-2xl bg-slate-100 w-fit  py-1 md:px-2 md:py-3">
                     $ echo HI, THERE
