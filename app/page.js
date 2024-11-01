@@ -6,6 +6,7 @@ import Hero from "./section/Hero";
 import LenisScroll from "./components/LenisScroll";
 
 import { motion, useScroll, useTransform } from "framer-motion";
+import About from "./section/About";
 
 
 export default function Home() {
@@ -51,15 +52,12 @@ export default function Home() {
               </div>
               <motion.div
                 style={{ width }}
-                className=" mx-auto max-lg:!w-full  sticky text-white flex-shrink-0 basis-auto grow "
+                className=" mx-auto max-lg:!w-full  sticky text-white flex-shrink-0 basis-auto grow snap-y"
               >
-                <Hero className="h-screen" />
-                <Hero className="h-screen" />
+                <Hero className="snap-start h-screen" />
+                <About className="snap-start h-screen" />
               </motion.div>
             </main>
-            <Hero className="h-screen" />
-            <Hero className="h-screen" />
-            <Hero className="h-screen" />
 
           </div>
           {/* <Hero /> */}

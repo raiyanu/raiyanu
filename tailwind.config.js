@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -26,6 +28,13 @@ module.exports = {
           content: "var(--muted-content)",
         },
       },
+      fontFamily: {
+        'sans': ['poppins', 'system-ui', ...defaultTheme.fontFamily.sans],
+        // 'serif': ['ui-serif', 'Georgia', ],
+        // 'mono': ['ui-monospace', 'SFMono-Regular',],
+        // 'display': ['Oswald',],
+        // 'body': ['"Open Sans"',],
+      }
     },
   },
   plugins: [],

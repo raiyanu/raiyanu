@@ -25,125 +25,65 @@ export default function Hero() {
     };
 
     return (
-        <div className="container py-2 md:pt-5 flex flex-col md:flex-row flex-wrap lg:flex-nowrap justify-center">
-            <div className="mb-4 mx-2 min-w-[72.5%] lg:px-10">
-                <p className="text-2xl bg-slate-100 w-fit  py-1 md:px-2 md:py-3">
-                    $ echo HI, THERE
-                </p>
-                <p className="text-xl bg-slate-100 w-fit  pt-1 -mb-2 px-1 text-red-400">
-                    It{"'"}s
-                </p>
-                <h1 className="text-6xl md:text-7xl font-extrabold">Raiyan Ahmed</h1>
-                <div className="text-2xl md:text-3xl font-extralight tracking-wider">
-                    <span>Web Developer & Gamer</span>
-                </div>
-                <div className="flex justify-center items-center gap-3 my-4">
-                    <a
-                        href="#"
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                    >
-                        Hire Me
-                    </a>
-                    <a
-                        href="#"
-                        className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300"
-                    >
-                        View Portfolio
-                    </a>
-                </div>
-                <div
-                    className="relative h-[300px] overflow-hidden"
-                    onMouseEnter={handleMouseEntryOnBorder}
-                    onMouseLeave={handleMouseExitOnBorder}
-                >
-                    <Mask
-                        ref={maskRef}
-                        animate={{
-                            WebkitMaskPosition: `${x - maskSize / 2}px ${y - maskSize / 2}px`,
-                            maskSize: `${maskSize}px`,
-                        }}
-                        transition={
-                            {
-                                damping: 10,
-                                duration: 0.2,
-                            }
-                        }
-                    >
-                        <p onMouseEnter={handleMaskEnter} onMouseLeave={handleMaskLeave}>
-                            There was a mask here but now it{"'"}s gone :{"("}
-                            But you can still hover over me to see the magic! Thus I am a
-                            mask, a mask of the past.
-                        </p>
-                    </Mask>
-                    <MaskBody ref={paraRef}>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                            enim ad minim veniam, quis nostrud.
-                        </p>
-                    </MaskBody>
-                </div>
-            </div>
-            <div className="my-4 mx-2 min-w-[22.5%] max-md:p-[1rem] overflow-y-scroll content-center">
-                <div className="flex justify-between items-center max-md:px-[1rem]">
-                    <p className="text-base italic text-gray-400 w-fit px-2 py-1  md:py-3">
-                        Follow me
-                    </p>
-                    <span className="flex justify-center items-center gap-3">
-                        <QubeText>WA</QubeText>
-                        <QubeText>IG</QubeText>
-                        <QubeText>X</QubeText>
-                    </span>
-                </div>
-                <p className="my-16">
-                    lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                    minim veniam, quis
-                </p>
-                <div className="flex flex-col items-start">
-                    <MyDetails className="mb-4 w-full ">
-                        <summary className="text-xl font-bold">About Me</summary>
-                        <p className="text-base text-gray-600 py-4">
-                            I am a passionate web developer with a love for creating dynamic
-                            and responsive web applications. My journey in web development
-                            started with a curiosity for how websites are built and has grown
-                            into a full-fledged career.
-                        </p>
-                    </MyDetails>
-                    <MyDetails className="mb-4">
-                        <summary className="text-xl font-bold">Skills</summary>
-                        <ul className="list-disc list-inside text-base text-gray-600 py-4">
-                            <li>JavaScript</li>
-                            <li>React</li>
-                            <li>Next.js</li>
-                            <li>CSS</li>
-                            <li>HTML</li>
-                        </ul>
-                    </MyDetails>
-                    <MyDetails className="mb-4">
-                        <summary className="text-xl font-bold">Contact</summary>
-                        <p className="text-base text-gray-600 py-4">
-                            Feel free to reach out to me via email at
+        <>
+            <div className="h-fit w-full flex flex-col">
+                <div className="min-h-screen flex items-center justify-center flex-col">
+                    <div className="max-w-2xl w-full min-h-[80vh] flex flex-col justify-center pt-12">
+                        <h1 className="text-4xl font-bold mb-4 text-gray-800 max-w-lg ">
+                            Hello,
+                            I'm a full stack developer
+                        </h1>
+                        <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+                            My name's <span className="text-4xl ">Raiyan Ahmed.</span> <br />I build web applications using modern web
+                            technologies.
+                        </h2>
+                        <button className="px-8 py-3 bg-primary-bg rounded-full font-medium hover:bg-secondary-bg transition duration-300 block my-4 w-fit">
+                            Let's work together!
+                        </button>
+
+                    </div>
+                    <div className="max-w-2xl w-full flex-1 px-4 text-left flex justify-start items-center min-h-[15vh]">
+                        <p className="text-gray-700">
+                            Find me at{" "}
                             <a
-                                href="mailto:example@example.com"
-                                className="text-blue-500 underline"
+                                href="https://www.linkedin.com/in/c-raiyan"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="underline uppercase"
                             >
-                                example@example.com
+                                LinkedIn
                             </a>
-                            .
+                            <a
+                                href="https://www.linkedin.com/in/raiyan-ahmed-7a3b3b1b1/"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="underline uppercase"
+                            >
+                                Twitter
+                            </a>
+                            <br />
+                            Download{" "}
+                            <a
+                                href="myresume.pdf"
+                                download
+                                className="underline uppercase"
+                            >
+                                my resume
+                            </a>{" "}
+                            {"(PDF 59kb)"}
                         </p>
-                    </MyDetails>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
 const center = `
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            `;
 const Mask = styled(motion.div)`
 	position: absolute;
 	mask-image: url("/mask.svg");
@@ -175,8 +115,8 @@ const SlideIn = styled(motion.details)`
 	z-index: 1;
 	transition: all 1s ease-in-out;
 	position: relative;
-    overflow: hidden;
-    padding-block: 0.75rem;
+	overflow: hidden;
+	padding-block: 0.75rem;
 	&::after {
 		content: " ";
 		position: absolute;
@@ -187,66 +127,66 @@ const SlideIn = styled(motion.details)`
 		width: 100%;
 		height: 100%;
 		z-index: -1;
-        transition: all 0.5s ease-in-out;
+		transition: all 0.5s ease-in-out;
 		transform: translateX(-100%);
 	}
-	&:hover::after  {
+	&:hover::after {
 		transform: translateX(0%);
 	}
 `;
 
 const MyDetails = styled(SlideIn)`
-	margin-bottom: 1rem;
-	width: 100%;
-	position: relative;
-    &:hover  {
-		color: #fff;
+            margin-bottom: 1rem;
+            width: 100%;
+            position: relative;
+            &:hover {
+                color: #fff;
 	}
-	summary {
-		border-bottom: 2px solid #000;
-		cursor: pointer;
+            summary {
+                border - bottom: 2px solid #000;
+            cursor: pointer;
 	}
-	summary::marker {
-		content: "";
+            summary::marker {
+                content: "";
 	}
-	&[open] summary ~ * {
-		animation: sweep 0.5s ease-in-out;
+            &[open] summary ~ * {
+                animation: sweep 0.5s ease-in-out;
 	}
-	@keyframes sweep {
-		0% {
-			opacity: 0;
-			margin-top: -10px;
+            @keyframes sweep {
+                0 % {
+                    opacity: 0;
+                    margin- top: -10px;
 		}
-		100% {
-			opacity: 1;
-			margin-top: 0px;
+            100% {
+                opacity: 1;
+            margin-top: 0px;
 		}
 	}
 	& > summary::after {
-		content: "›";
-		position: absolute;
-		right: 20px;
-		top: 2px;
+                content: "›";
+            position: absolute;
+            right: 20px;
+            top: 2px;
 	}
 	&[open] > summary::after {
-		content: "⌄";
-		position: absolute;
-		right: 20px;
-		top: 2px;
+                content: "⌄";
+            position: absolute;
+            right: 20px;
+            top: 2px;
 	}
 
-	&::after {
-		content: " ";
-		position: absolute;
-		top: 0;
-		left: 0;
-		color: #fff;
-		background-color: #000;
-		width: 100%;
-		height: 100%;
-		z-index: -1;
+            &::after {
+                content: " ";
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #fff;
+            background-color: #000;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
 	}
-`;
+            `;
 
 const QubeText = styled.a`
 	text-align: center;
