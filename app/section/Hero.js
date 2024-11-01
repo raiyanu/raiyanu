@@ -12,12 +12,23 @@ export default function Hero({ blob }) {
             <div className="h-fit w-full flex flex-col">
                 <div className="min-h-screen flex items-center justify-center flex-col">
                     <div className="max-w-2xl w-full min-h-[80vh] flex flex-col justify-center pt-12">
-                        <h1 className="text-4xl font-bold mb-4 text-gray-800 max-w-lg ">
+                        <h1 className="text-4xl font-bold mb-4 text-gray-800 max-w-lg"
+
+                        >
                             Hello,
                             I{"'"}m a full stack developer
                         </h1>
                         <h2 className="text-2xl font-semibold mb-4 text-gray-800">
-                            My name{"'"}s <span className="text-4xl ">Raiyan Ahmed.</span> <br />I build web applications using modern web
+                            My name{"'"}s <motion.span className="text-4xl cursor-pointer text-secondary-content rounded-md" animate={{
+                                backgroundColor: [!blob.hideBlob ? "transparent" : "#000"],
+                            }}
+                                onMouseEnter={() => {
+                                    blob.setHideBlob(true)
+                                }}
+                                onMouseLeave={() => {
+                                    blob.setHideBlob(false)
+                                }}
+                            >Raiyan Ahmed.</motion.span> <br />I build web applications using modern web
                             technologies.
                         </h2>
                         <button className="px-8 py-3 bg-primary-bg rounded-full font-medium hover:bg-secondary-bg transition duration-300 block my-4 w-fit"
