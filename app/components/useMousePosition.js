@@ -1,36 +1,31 @@
 import { useState, useEffect } from "react";
 
-export default function useMousePosition({ maskRef, paraRef }) {
+export default function useMousePosition({ section }) {
     const [position, setPosition] = useState({ x: 0, y: 0 });
-    const maskDefaultSize = 30;
 
-    const [paraHovered, setParaHovered] = useState(false);
     const [maskHovered, setMaskHovered] = useState(false);
 
     useEffect(() => {
         const setMousePos = (pos) => setPosition({ x: pos.x, y: pos.y });
-        const maskElement = maskRef.current;
-        const paraElement = paraRef.current;
+        if (!section) return;
 
-        if (!maskElement || !paraElement) return;
+        const sectionElement = section.current;
+        if (!sectionElement) return;
 
-        const handleMaskMove = (e) => {
-            const maskPos = maskElement.getBoundingClientRect();
-            const relativeX = e.clientX - maskPos.left;
-            const relativeY = e.clientY - maskPos.top;
-            let pos = {
-                x: relativeX,
-                y: relativeY,
-            };
-            setMousePos(pos);
+        const handleBlobMove = (e) => {
+            setMousePos({
+                x: e.clientX,
+                y: e.clientY,
+            });
         };
 
-        maskElement.addEventListener("mousemove", handleMaskMove);
+        window.addEventListener("mousemove", handleBlobMove);
 
         return () => {
-            maskElement.removeEventListener("mousemove", handleMaskMove);
+            window.removeEventListener("mousemove", handleBlobMove);
+
         };
-    }, [maskRef, paraRef, maskHovered, paraHovered]);
+    }, [section, maskHovered]);
 
     return position;
 }

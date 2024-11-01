@@ -1,15 +1,16 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./section/Hero";
 import LenisScroll from "./components/LenisScroll";
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import About from "./section/About";
-
+import Cursor from "./components/Cursor";
 
 export default function Home() {
+  const [hideBlob, setHideBlob] = useState(false);
   const spanref = useRef(null);
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -28,41 +29,51 @@ export default function Home() {
   const width = useTransform(scrollYProgress, [0, 1], ["40%", "100%"]);
   return (
     <>
-      <LenisScroll>
-        <div className=" bg-slate-100 min-h-screen">
-          <Navbar />
-          <div className="flex *:flex-1 h-fit flex-col">
-            <main
-              className="bg-slate-400 flex flex-col lg:flex-row relative"
-              ref={containerRef}
-            >
-              <div className="  w-1/3 h-screen sticky  top-0  border-white flex-1 max-lg:left-1/2 max-lg:right-1/2 max-lg:w-full overflow-hidden">
-                <motion.div
-                  style={{ scale, filter }}
-                  className="w-full max-w-[100vw] h-full "
-                >
-                  <Image
-                    src="/person.jpg"
-                    width={300}
-                    height={500}
-                    className="w-full overflow-hidden h-full object-cover bg-fixed"
-                    alt="my pic"
-                  />
-                </motion.div>
-              </div>
-              <motion.div
-                style={{ width }}
-                className=" mx-auto max-lg:!w-full  sticky text-white flex-shrink-0 basis-auto grow snap-y"
+      <Cursor hideBlob={hideBlob}>
+        <LenisScroll>
+          <div className=" bg-slate-100 min-h-screen">
+            <Navbar />
+            <div className="flex *:flex-1 h-fit flex-col">
+              <main
+                className="bg-slate-400 flex flex-col lg:flex-row relative"
+                ref={containerRef}
               >
-                <Hero className="snap-start h-screen" />
-                <About className="snap-start h-screen" />
-              </motion.div>
-            </main>
-
+                <div className="  w-1/3 h-screen sticky  top-0  border-white flex-1 max-lg:left-1/2 max-lg:right-1/2 max-lg:w-full overflow-hidden">
+                  <motion.div
+                    style={{ scale, filter }}
+                    className="w-full max-w-[100vw] h-full "
+                    onMouseEnter={() => {
+                      setHideBlob(true);
+                    }}
+                    onMouseLeave={() => {
+                      setHideBlob(false);
+                    }}
+                  >
+                    <Image
+                      src="/person.jpg"
+                      width={300}
+                      height={500}
+                      className="w-full overflow-hidden h-full object-cover bg-fixed"
+                      alt="my pic"
+                    />
+                  </motion.div>
+                </div>
+                <motion.div
+                  style={{ width }}
+                  className=" mx-auto max-lg:!w-full  sticky text-white flex-shrink-0 basis-auto grow snap-y"
+                >
+                  <Hero
+                    className="snap-start h-screen"
+                    blob={{ hideBlob, setHideBlob }}
+                  />
+                  <About className="snap-start h-screen" />
+                </motion.div>
+              </main>
+            </div>
+            {/* <Hero /> */}
           </div>
-          {/* <Hero /> */}
-        </div>
-      </LenisScroll>
+        </LenisScroll>
+      </Cursor>
     </>
   );
 }

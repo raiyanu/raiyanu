@@ -1,4 +1,3 @@
-import React from "react";
 
 export default function About() {
     return (
@@ -15,21 +14,27 @@ export default function About() {
                 <h3 className="text-2xl font-semibold mb-2">Technical</h3>
                 <p>
                     You can find me actively working with technologies like React,
-                    Node.js, Express, MongoDB, <wbr />and Tailwind CSS. <wbr />I also enjoy exploring
-                    Rust, <wbr />and I am capable of working with Python,<wbr /> C++,<wbr /> and Java when
-                    needed.
+                    Node.js, Express, MongoDB, <wbr />
+                    and Tailwind CSS. <wbr />I also enjoy exploring Rust, <wbr />
+                    and I am capable of working with Python,
+                    <wbr /> C++,
+                    <wbr /> and Java when needed.
                 </p>
             </div>
 
             <div>
                 <h3 className="text-2xl font-semibold mb-2">Personal</h3>
                 <p>
-                    I am from Pernambut, India, <wbr />and take pride in continuous learning<wbr /> and
-                    adaptability. <wbr />Fluent in multiple languages including Urdu, English,
-                    Tamil, and intermediate in Hindi, I strive to connect with people and
-                    embrace different cultures.
+                    I am from Pernambut, India, <wbr />
+                    and take pride in continuous learning
+                    <wbr /> and adaptability. <wbr />
+                    Fluent in multiple languages including Urdu, English, Tamil, and
+                    intermediate in Hindi, I strive to connect with people and embrace
+                    different cultures.
                 </p>
-                <p className="mt-4 italic">Ready to build something great together!</p>
+                <p className="mt-4 italic">
+                    Ready to build something great together!
+                </p>
             </div>
         </div>
     );
