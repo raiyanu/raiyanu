@@ -5,11 +5,14 @@ import Navbar from "./components/Navbar";
 import Hero from "./section/Hero";
 import LenisScroll from "./components/LenisScroll";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import About from "./section/About";
 import Cursor from "./components/Cursor";
+import LoadPreview from "./components/LoadPreview";
 
 export default function Home() {
+  const [isLoading, setIsloading] = useState(true);
+
   const [hideBlob, setHideBlob] = useState(false);
   const spanref = useRef(null);
   const containerRef = useRef(null);
@@ -19,6 +22,13 @@ export default function Home() {
   });
   useEffect(() => {
     console.log("width", width);
+    const LoadingCompleteHandler = () => {
+      setIsloading(false);
+    };
+    setTimeout(LoadingCompleteHandler, 7000);
+    return () => {
+      window.scrollTo(0, 0);
+    };
   }, [scrollYProgress]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
   const filter = useTransform(
@@ -29,6 +39,11 @@ export default function Home() {
   const width = useTransform(scrollYProgress, [0, 1], ["40%", "100%"]);
   return (
     <>
+      {isLoading && (
+        <AnimatePresence mode="wait" isLoading={isLoading}>
+          <LoadPreview />
+        </AnimatePresence>
+      )}
       <Cursor hideBlob={hideBlob}>
         <LenisScroll>
           <div className=" bg-slate-100 min-h-screen">
