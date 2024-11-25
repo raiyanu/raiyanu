@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { delay, easeInOut, motion } from "framer-motion";
 
 export default function LoadPreview({ isLoading }) {
+    const loadWait = 3;
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
     useEffect(() => {
@@ -23,11 +24,25 @@ export default function LoadPreview({ isLoading }) {
             borderBottomLeftRadius: borderRadius,
             transition: {
                 duration: 1.5,
-                delay: 0.2,
+                delay: loadWait, // delay the exit animation by Ns
                 ease: easeInOut,
             },
         },
     };
+    const DotsVariants = {
+        initial: {
+            opacity: 1,
+        },
+        exit: {
+            opacity: 0,
+            transition: {
+                duration: 1.5,
+                delay: loadWait - .75,
+                ease: easeInOut,
+            },
+        },
+    };
+
     const dotVariants = {
         bounce: (delay) => ({
             y: ["-20px", "0px", "-20px"],
@@ -48,7 +63,8 @@ export default function LoadPreview({ isLoading }) {
             exit="exit"
             className=" flex items-center justify-center fixed h-screen w-screen top-0 left-0 bg-black z-50 text-white font-sans font-bold text-2xl"
         >
-            <svg
+            <motion.svg
+                variants={DotsVariants}
                 xmlns="http://www.w3.org/2000/svg"
                 width="100"
                 height="100"
@@ -62,7 +78,7 @@ export default function LoadPreview({ isLoading }) {
                 <motion.circle animate={"bounce"} variants={dotVariants} custom={2} cx="30" cy="50" r="4" />
                 <motion.circle animate={"bounce"} variants={dotVariants} custom={1.5} cx="60" cy="50" r="4" />
                 <motion.circle animate={"bounce"} variants={dotVariants} custom={1} cx="90" cy="50" r="4" />
-            </svg>
+            </motion.svg>
         </motion.div>
     );
 }

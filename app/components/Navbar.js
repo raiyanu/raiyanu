@@ -30,30 +30,29 @@ const MyHeader = styled.header`
 	border-bottom-left-radius: 1rem;
 	border-bottom-right-radius: 1rem;
 	z-index: 3;
-	&::before {
-		content: "";
-		position: absolute;
-		background-color: transparent;
-		top: 0;
-		left: -25px;
-		height: 50px;
-		width: 25px;
-		border-top-right-radius: 22px;
-		box-shadow: 0 -25px 0 0 rgba(255, 0, 0, 0.5);
+	border: 0 !important;
+
+	&::before, 
+	&::after{
 		z-index: -1;
+		content: "";
+		top: 0;
+		height: 50px;
+		position: absolute;
+		width: 25px;
+		box-shadow: 0 -25px 0 0 var(--light-bg);
+		background-color: transparent;
+	}
+
+	&::before {
+		left: -25px;
+		border-top-right-radius: 22px;
 	}
 	&::after {
-		z-index: -1;
-		content: "";
-		position: absolute;
-		background-color: transparent;
-		top: 0;
 		right: -25px;
-		height: 50px;
-		width: 25px;
 		border-top-left-radius: 22px;
-		box-shadow: 0 -25px 0 0 rgba(255, 0, 0, 0.5);
 	}
+
 	@media (max-width: 768px) {
 		align-items: center;
 		gap: 0.5rem;
