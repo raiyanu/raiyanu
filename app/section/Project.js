@@ -29,6 +29,7 @@ export default function Project() {
                             location={project.location}
                             links={project.links}
                             technologies={project.technologies}
+                            key={project.title}
                         />
                     ))}
                 </Masonry>
