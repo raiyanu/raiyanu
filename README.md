@@ -1,6 +1,6 @@
 # 👋 Hey there, I'm Raiyan Ahmed
 
-<i style="display:block;text-align:center;font-size:1.5rem;"> 🚀 Versatile Developer | ⇄ JSON<sup>ist</sup> | 🌈 Dream Chaser | 🏡 Based in 127.0.0.1
+<i style="display:block;text-align:center;font-size:1.5rem;"> 🚀 Versatile Developer | ⇄ JSON<sup>ist</sup> |  🏡 Based in 127.0.0.1
 </i>
 
 Welcome to my little corner of the internet! I'm not your average developer - I'm more a guy who would spend time more in making adblocker than making ads.🤞
@@ -37,6 +37,8 @@ I'm on a quest to land a life-changing job and create the next big thing. Think 
 - Mastered the art of Tailwind CSS - now I can make websites pretty in 9 different shades for each color/colour & ruin HTML file instead of .CSS file
 
 [![roadmap.sh](https://roadmap.sh/card/wide/64f21c72b128dce3cb9c3411?variant=light&roadmaps=full-stack%2Cjava%2Cjavascript%2Cfrontend)](https://www.google.com/search?sca_esv=011de76d6005021e&sxsrf=ADLYWIIKGhf2U4xQHWfwQFhyVrp6WOvTcw:1723624996835&q=funny+cat+images+meme&udm=2&fbs=AEQNm0BKxFXqFZETuC92mLOmXO9xTuwl7LTqpjEikSHB2sNnAo_Nt6_jBoO5j_EG4ZXs8aQCufxT5WhqKxk_t3EFVMM67rI6i01ADbZ-a5wYaAsalDcO6S1GH-LO2-BpNO0GjKIvvxoXnjjP08V8RmhXnS3ZTYi7mGxclhyNM7kU-cEZojmfYb66zxZupqQ3TpTT-qjAIEt1CwlZuUTZOKSe8wS1nEmI6w&sa=X&ved=2ahUKEwi-gKa9i_SHAxVIU2wGHaCRCaAQtKgLegQICxAB&biw=1366&bih=650&dpr=1)
+
+[![Code War Profile](https://www.codewars.com/users/raiyanu/badges/large)](https://www.codewars.com/users/raiyanu/)
 
 ### 🎉 Fun Facts
 
