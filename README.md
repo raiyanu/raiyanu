@@ -1,11 +1,11 @@
-# 👋 Hey there, I'm Raiyan Ahmed
+# 👋 Hey there, I'm Raiyan
 
 <i style="display:block;text-align:center;font-size:1.5rem;"> 🚀 Versatile Developer | ⇄ JSON<sup>ist</sup> |  🏡 Based in 127.0.0.1
 </i>
 
 Welcome to my little corner of the internet! I'm not your average developer - I'm more a guy who would spend time more in making adblocker than making ads.🤞
 
-> also this repository also work as my [portfolio](https://raiyanu.github.io/)
+> also this repository also work as my [portfolio](https://raiyanu.vercel.app/)
 
 ### 🎭 About Me
 
@@ -40,9 +40,9 @@ I'm on a quest to land a life-changing job and create the next big thing. Think 
 
 [![Code War Profile](https://www.codewars.com/users/raiyanu/badges/large)](https://www.codewars.com/users/raiyanu/)
 
-### 🎉 Fun Facts
+### 🎉 Little more about me
 
-- I'm fluent in Urdu, English, Tamil, and intermediate in Hindi - I'm basically the Babel fish of South Asia
+- I'm fluent in Urdu, English, Tamil, and intermediate in Hindi.
 - I once debugged a program so complex, even the bugs had bugs
 - Yes, Still learning JS cuz it still doesn't make sense to me.
 - Solved lots of life problem with [sudo](https://www.sudo.ws/) or with --force
