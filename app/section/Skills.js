@@ -1,28 +1,34 @@
 "use client";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import ScrollReveal from "../components/ScrollReveal";
+import ParallaxMarquee from "../components/ParallaxMarquee";
 
-const skillGroups = [
+/* ─── Data ───────────────────────────────────────────────────────────────── */
+
+const tools = [
+  "React.js", "Next.js", "JavaScript ES6+", "TypeScript", "Redux",
+  "Framer Motion", "GSAP", "Tailwind CSS", "Node.js", "MongoDB",
+  "GraphQL", "Figma", "Git", "Vite", "Sanity.io",
+  "CSS3", "HTML5", "Express.js", "Pocketbase", "Postman",
+];
+
+const philosophyStatements = [
   {
-    category: "Languages",
-    items: ["JavaScript (ES6+)", "HTML5", "CSS3", "Node.js"],
+    statement: "Performance is a feature.",
+    detail: "Every millisecond matters. Optimize ruthlessly — users feel it even when they don't notice it.",
   },
   {
-    category: "Frameworks",
-    items: ["React.js", "Next.js", "AstroJS", "Express.js", "Redux"],
+    statement: "Design systems matter.",
+    detail: "Consistency scales. Chaos doesn't. A solid token system is worth a thousand one-off fixes.",
   },
   {
-    category: "Styling",
-    items: ["Tailwind CSS", "Bootstrap", "Styled Components", "Framer Motion"],
+    statement: "Every pixel has intent.",
+    detail: "Purposeful design always trumps decoration. If it doesn't serve the user, it doesn't belong.",
   },
   {
-    category: "Tools",
-    items: ["Git", "MongoDB", "Pocketbase", "Vite", "Postman", "Sanity.io"],
-  },
-  {
-    category: "Design",
-    items: ["Figma", "Adobe XD", "Penpot", "Canva"],
+    statement: "Ship fast. Refine always.",
+    detail: "The best code is the code that ships and improves. Perfection is the enemy of done.",
   },
 ];
 
@@ -36,91 +42,118 @@ const certs = [
   "Web Dev Bootcamp — TIET",
 ];
 
-function SkillRow({ group, index }) {
+/* ─── Philosophy Card ────────────────────────────────────────────────────── */
+
+function PhilosophyCard({ item, index }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isInView = useInView(ref, { once: true, amount: 0.25 });
+  const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 28 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-12 py-6 border-b border-border/30 last:border-b-0 group"
+      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative p-7 rounded-2xl border border-border bg-bg-surface hover:border-accent/40 transition-all duration-normal overflow-hidden group"
+      data-cursor="Method"
     >
-      {/* Category — fixed width label */}
-      <span className="text-xs font-mono text-accent uppercase tracking-widest sm:w-32 shrink-0 pt-1">
-        0{index + 1} / {group.category}
-      </span>
+      {/* Glow layer */}
+      <motion.div
+        animate={{ opacity: hovered ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+        className="absolute inset-0 rounded-2xl pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 30% 30%, var(--accent-soft) 0%, transparent 70%)" }}
+      />
 
-      {/* Skills — flowing text, not pills */}
-      <div className="flex flex-wrap gap-x-5 gap-y-3 flex-1">
-        {group.items.map((item, i) => (
-          <motion.span
-            key={item}
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ delay: index * 0.08 + 0.15 + i * 0.04 }}
-            whileHover={{ x: 6, color: "var(--accent)" }}
-            className="text-body-md text-text-secondary transition-all duration-fast relative group/skill font-medium"
-            data-cursor={item}
-          >
-            {item}
-            {i < group.items.length - 1 && (
-              <span className="text-text-muted/20 ml-5 select-none font-normal">·</span>
-            )}
-          </motion.span>
-        ))}
-      </div>
+      {/* Corner accent tick */}
+      <motion.div
+        animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.6 }}
+        transition={{ duration: 0.25 }}
+        className="absolute top-4 right-4 w-1.5 h-1.5 rounded-full bg-accent"
+      />
+
+      <p
+        className="font-display font-black text-lg md:text-xl text-text-primary mb-3 group-hover:text-accent transition-colors duration-normal leading-tight relative"
+      >
+        &ldquo;{item.statement}&rdquo;
+      </p>
+      <p className="text-body-sm text-text-muted leading-relaxed relative">{item.detail}</p>
     </motion.div>
   );
 }
 
+/* ─── Main Component ─────────────────────────────────────────────────────── */
+
 export default function Skills() {
   return (
-    <section id="skills" className="py-section relative overflow-hidden border-b border-border/30">
-      <div className="max-w-content mx-auto px-6 md:px-12 lg:px-20">
+    <section
+      id="skills"
+      className="py-section relative overflow-hidden border-b border-border/30"
+    >
+      {/* Background section number */}
+      <div
+        className="section-bg-number absolute -right-6 top-4 select-none pointer-events-none"
+        aria-hidden="true"
+      >
+        04
+      </div>
+
+      <div className="max-w-content mx-auto px-6 md:px-12 lg:px-20 relative">
         {/* Section label */}
         <ScrollReveal>
-          <div className="flex items-center gap-4 mb-16">
+          <div className="flex items-center gap-4 mb-14">
             <span className="text-label font-mono text-accent uppercase tracking-[0.2em]">04</span>
-            <div className="h-px w-[60px] bg-accent/30" />
-            <span className="text-label font-mono text-text-muted uppercase tracking-[0.15em]">Skills</span>
+            <div className="h-px w-16 bg-accent/30" />
+            <span className="text-label font-mono text-text-muted uppercase tracking-[0.15em]">Method</span>
           </div>
         </ScrollReveal>
 
-        {/* Section Title */}
-        <ScrollReveal delay={0.1} className="mb-14">
-          <h2 className="text-display-md font-display font-black text-text-primary">
-            Technical Stack<span className="text-accent">.</span>
+        <ScrollReveal delay={0.1} className="mb-16">
+          <h2 className="font-display font-black text-[clamp(2rem,5vw,3.5rem)] leading-tight text-text-primary tracking-tight">
+            The way<br />I work<span className="text-accent">.</span>
           </h2>
         </ScrollReveal>
+      </div>
 
-        {/* Skills Directory */}
-        <div className="max-w-3xl lg:ml-[12%] mb-20">
-          {skillGroups.map((group, i) => (
-            <SkillRow key={group.category} group={group} index={i} />
+      {/* Full-width tool marquee */}
+      <ScrollReveal delay={0.15}>
+        <div className="border-y border-border/30 py-4 mb-16">
+          <ParallaxMarquee items={tools} speed={40} />
+        </div>
+      </ScrollReveal>
+
+      <div className="max-w-content mx-auto px-6 md:px-12 lg:px-20">
+        {/* Philosophy grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-16">
+          {philosophyStatements.map((item, i) => (
+            <PhilosophyCard key={item.statement} item={item} index={i} />
           ))}
         </div>
 
-        {/* Certifications Block */}
-        <div className="max-w-3xl lg:ml-[12%] pt-10 border-t border-border/30">
+        {/* Certifications */}
+        <div className="border-t border-border/30 pt-12">
           <ScrollReveal className="mb-8">
-            <span className="font-mono text-[9px] uppercase tracking-widest text-text-muted">
-              Professional Credentials
-            </span>
+            <div className="flex items-center gap-4">
+              <span className="font-mono text-[9px] uppercase tracking-widest text-text-muted">
+                Professional Credentials
+              </span>
+              <div className="h-px flex-1 bg-border/50 max-w-[120px]" />
+            </div>
           </ScrollReveal>
 
           <div className="flex flex-wrap gap-2.5">
             {certs.map((cert, i) => (
               <motion.span
                 key={cert}
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -3, borderColor: "var(--accent)" }}
-                className="px-4 py-2 rounded-lg text-body-sm text-text-secondary border border-border bg-bg-surface hover:text-accent transition-all duration-normal"
+                transition={{ delay: i * 0.05, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -3, borderColor: "var(--border-accent)", color: "var(--accent)" }}
+                className="px-4 py-2 rounded-xl text-body-sm text-text-secondary border border-border bg-bg-surface hover:shadow-surface transition-all duration-normal"
               >
                 {cert}
               </motion.span>
