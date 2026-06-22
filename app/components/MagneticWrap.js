@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-export default function MagneticWrap({ children, className = "", strength = 0.3 }) {
+export default function MagneticWrap({ children, className = "", style = {}, strength = 0.3 }) {
   const ref = useRef(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
@@ -24,6 +24,7 @@ export default function MagneticWrap({ children, className = "", strength = 0.3 
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       className={className}
+      style={style}
     >
       {children}
     </motion.div>

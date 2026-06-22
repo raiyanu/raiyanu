@@ -165,7 +165,7 @@ export default function Contact() {
             <h2
               className="font-display font-black leading-[0.9] tracking-tighter mb-6"
               style={{
-                fontSize: "clamp(3rem, 9vw, 9rem)",
+                fontSize: "clamp(2.2rem, 6vw, 6rem)",
                 color: "#f0e9dc",
               }}
             >
@@ -190,10 +190,8 @@ export default function Contact() {
         </div>
 
         {/* Primary CTA */}
-        <ScrollReveal delay={0.32}>
-          <MagneticWrap strength={0.2} style={{
-            width: "fit-content",
-          }}>
+        <ScrollReveal delay={0.32} className="w-fit">
+          <MagneticWrap strength={0.2} style={{ width: "fit-content" }}>
             <a
               href="mailto:raiyan.c.me@gmail.com"
               data-cursor="SAY HI"

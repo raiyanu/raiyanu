@@ -1,18 +1,25 @@
 "use client";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 import MagneticWrap from "./MagneticWrap";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, X } from "lucide-react";
 
 const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Work" },
-  { href: "#projects", label: "Projects" },
-  { href: "#skills", label: "Skills" },
-  { href: "#contact", label: "Contact" },
+  { href: "#home",       label: "Home",     number: "01" },
+  { href: "#about",      label: "About",    number: "02" },
+  { href: "#experience", label: "Work",     number: "03" },
+  { href: "#projects",   label: "Projects", number: "04" },
+  { href: "#skills",     label: "Method",   number: "05" },
+  { href: "#contact",    label: "Contact",  number: "06" },
 ];
+
+/* ─── Animated Hamburger Button ─────────────────────────────────────────── */
 
 function MenuButton({ isOpen, toggle }) {
   return (
@@ -21,87 +28,145 @@ function MenuButton({ isOpen, toggle }) {
         onClick={toggle}
         data-cursor={isOpen ? "Close" : "Menu"}
         className="relative z-50 w-12 h-12 rounded-full flex flex-col items-center justify-center gap-[5px] bg-bg-surface border border-border hover:border-accent/40 transition-colors duration-fast overflow-hidden shadow-sm"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.92 }}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.90 }}
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
+        {/* Animated fill sweep on open */}
+        <motion.div
+          className="absolute inset-0 rounded-full"
+          style={{ backgroundColor: "var(--accent)" }}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={isOpen ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        />
+
+        {/* Line 1 */}
         <motion.span
-          className="block w-5 h-[1.5px] bg-text-primary rounded-full origin-center"
+          className="block h-[1.5px] rounded-full origin-center relative z-10"
+          style={{ backgroundColor: isOpen ? "#080706" : "var(--text-primary)" }}
           animate={
             isOpen
-              ? { rotate: 45, y: 6.5, width: 16, backgroundColor: "var(--accent)" }
+              ? { rotate: 45, y: 6.5, width: 16 }
               : { rotate: 0, y: 0, width: 18 }
           }
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
         />
+        {/* Line 2 */}
         <motion.span
-          className="block w-4 h-[1.5px] bg-text-primary rounded-full"
+          className="block h-[1.5px] rounded-full relative z-10"
+          style={{ backgroundColor: isOpen ? "#080706" : "var(--text-primary)" }}
           animate={isOpen ? { opacity: 0, scaleX: 0, x: -10 } : { opacity: 1, scaleX: 1, x: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.28 }}
+          initial={{ width: 14 }}
         />
+        {/* Line 3 */}
         <motion.span
-          className="block w-5 h-[1.5px] bg-text-primary rounded-full origin-center"
+          className="block h-[1.5px] rounded-full origin-center relative z-10"
+          style={{ backgroundColor: isOpen ? "#080706" : "var(--text-primary)" }}
           animate={
             isOpen
-              ? { rotate: -45, y: -6.5, width: 16, backgroundColor: "var(--accent)" }
+              ? { rotate: -45, y: -6.5, width: 16 }
               : { rotate: 0, y: 0, width: 12 }
           }
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
         />
       </motion.button>
     </MagneticWrap>
   );
 }
 
-// Liquid sweep animation coordinates
+/* ─── SVG Liquid Sweep ───────────────────────────────────────────────────── */
 const svgCurveVariants = {
-  initial: {
-    d: "M 100 0 L 100 100 L 100 100 L 100 0 Z"
-  },
+  initial:  { d: "M 100 0 L 100 100 L 100 100 L 100 0 Z" },
   enter: {
     d: [
       "M 100 0 L 100 100 L 100 100 L 100 0 Z",
       "M 100 0 L 100 100 L 0 100 Q -30 50 0 0 Z",
-      "M 100 0 L 100 100 L 0 100 L 0 0 Z"
+      "M 100 0 L 100 100 L 0 100 L 0 0 Z",
     ],
-    transition: { duration: 0.85, ease: [0.76, 0, 0.24, 1] }
+    transition: { duration: 0.85, ease: [0.76, 0, 0.24, 1] },
   },
   exit: {
     d: [
       "M 100 0 L 100 100 L 0 100 L 0 0 Z",
       "M 100 0 L 100 100 L 100 100 Q 130 50 100 0 Z",
-      "M 100 0 L 100 100 L 100 100 L 100 0 Z"
+      "M 100 0 L 100 100 L 100 100 L 100 0 Z",
     ],
-    transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] }
-  }
+    transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] },
+  },
 };
 
-const linkVariants = {
-  closed: { opacity: 0, y: 60, rotate: 6, filter: "blur(6px)" },
-  open: (i) => ({
-    opacity: 1,
-    y: 0,
-    rotate: 0,
-    filter: "blur(0px)",
-    transition: {
-      delay: 0.35 + i * 0.05,
-      duration: 0.7,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  }),
-};
+/* ─── Nav Link ───────────────────────────────────────────────────────────── */
+function NavLink({ link, index, activeSection, onClick }) {
+  const [hovered, setHovered] = useState(false);
+  const isActive = activeSection === link.href.slice(1);
+
+  return (
+    <div className="overflow-hidden" key={link.href}>
+      <motion.a
+        href={link.href}
+        custom={index}
+        variants={{
+          closed: { opacity: 0, y: 70, rotate: 5, filter: "blur(8px)" },
+          open: (i) => ({
+            opacity: 1, y: 0, rotate: 0, filter: "blur(0px)",
+            transition: { delay: 0.3 + i * 0.055, duration: 0.75, ease: [0.16, 1, 0.3, 1] },
+          }),
+        }}
+        initial="closed"
+        animate="open"
+        exit="closed"
+        onClick={(e) => { e.preventDefault(); onClick(link.href); }}
+        data-cursor={link.label}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        className={`group relative flex items-baseline gap-4 font-display text-4xl md:text-6xl font-black uppercase tracking-tighter py-1 transition-colors duration-fast ${
+          isActive ? "text-accent" : "text-text-primary"
+        }`}
+      >
+        {/* Number */}
+        <span className="font-mono text-[0.38em] text-text-muted font-medium self-center shrink-0">
+          {link.number}
+        </span>
+
+        {/* Label with hover x-slide */}
+        <motion.span
+          animate={{ x: hovered ? 18 : 0 }}
+          transition={{ type: "spring", stiffness: 240, damping: 18 }}
+          className="block"
+        >
+          {link.label}
+        </motion.span>
+
+        {/* Active underline */}
+        {isActive && (
+          <motion.div
+            layoutId="activeNavLine"
+            className="absolute -bottom-0.5 left-14 h-px bg-accent"
+            style={{ width: "40px" }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          />
+        )}
+      </motion.a>
+    </div>
+  );
+}
+
+/* ─── Main Navbar ────────────────────────────────────────────────────────── */
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen]           = useState(false);
+  const [scrolled, setScrolled]       = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const [timeString, setTimeString] = useState("");
+  const [timeString, setTimeString]   = useState("");
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 60);
   });
 
+  // Intersection observer for active section
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -118,42 +183,44 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
+  // Scroll lock when menu open
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
-  // Dynamic ticking time in Pernambut (IST)
+  // Live clock
   useEffect(() => {
-    const updateClock = () => {
-      const options = {
-        timeZone: "Asia/Kolkata",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false
-      };
-      const istTime = new Date().toLocaleTimeString("en-US", options);
-      setTimeString(istTime + " IST");
+    const update = () => {
+      setTimeString(
+        new Date().toLocaleTimeString("en-US", {
+          timeZone: "Asia/Kolkata",
+          hour: "2-digit", minute: "2-digit", second: "2-digit",
+          hour12: false,
+        }) + " IST"
+      );
     };
+    update();
+    const iv = setInterval(update, 1000);
+    return () => clearInterval(iv);
+  }, []);
 
-    updateClock();
-    const interval = setInterval(updateClock, 1000);
-    return () => clearInterval(interval);
+  // Close on Escape key
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") setIsOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   const handleClick = (href) => {
     setIsOpen(false);
     const el = document.querySelector(href);
-    if (el) {
-      setTimeout(() => {
-        el.scrollIntoView({ behavior: "smooth" });
-      }, 550);
-    }
+    if (el) setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 550);
   };
 
   return (
     <>
+      {/* ── Fixed Top Bar ────────────────────────────────────────────── */}
       <motion.header
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -177,22 +244,26 @@ export default function Navbar() {
             </a>
           </MagneticWrap>
 
-          {/* Controls */}
+          {/* Controls row */}
           <div className="flex items-center gap-6">
             <MagneticWrap strength={0.3}>
               <ThemeToggle />
             </MagneticWrap>
             <div className="flex items-center gap-3">
-              <span className="hidden md:inline font-mono text-xs uppercase tracking-widest text-text-secondary select-none">
-                {isOpen ? "Close" : "Menu"}
-              </span>
+              <motion.span
+                className="hidden md:inline font-mono text-xs uppercase tracking-widest text-text-secondary select-none"
+                animate={{ opacity: isOpen ? 0 : 1 }}
+                transition={{ duration: 0.2 }}
+              >
+                Menu
+              </motion.span>
               <MenuButton isOpen={isOpen} toggle={() => setIsOpen(!isOpen)} />
             </div>
           </div>
         </nav>
       </motion.header>
 
-      {/* Full-screen Liquid SVG Menu Overlay */}
+      {/* ── Full-screen Menu Overlay ─────────────────────────────────── */}
       <AnimatePresence>
         {isOpen && (
           <div className="fixed inset-0 z-40 overflow-hidden pointer-events-auto">
@@ -210,94 +281,137 @@ export default function Navbar() {
               />
             </svg>
 
-            {/* Menu Panel Content */}
-            <div className="absolute inset-0 z-50 flex items-center p-6 md:p-16 lg:p-24">
-              <div className="max-w-content w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-stretch h-full py-20 lg:py-12">
-                {/* Left Column: Studio Details (Fades in slightly later) */}
+            {/* Backdrop click to close */}
+            <motion.div
+              className="absolute inset-0 z-40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+            />
+
+            {/* ── Menu panel ──────────────────────────────────────────── */}
+            <div className="absolute inset-0 z-50 flex items-center p-6 md:p-16 lg:p-24 pointer-events-none">
+              <div className="max-w-content w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-stretch h-full py-20 lg:py-12 pointer-events-auto">
+
+                {/* Left column: Studio details */}
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -30 }}
-                  transition={{ delay: 0.45, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="lg:col-span-5 flex flex-col justify-between h-full border-r border-border/30 pr-8 hidden lg:flex"
+                  transition={{ delay: 0.4, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                  className="lg:col-span-5 flex-col justify-between h-full border-r border-border/30 pr-8 hidden lg:flex"
                 >
                   <div className="flex flex-col gap-6 pt-12">
-                    <span className="text-[10vw] font-display font-black text-outline opacity-[0.07] leading-none select-none">
+                    <motion.span
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.55, duration: 0.6 }}
+                      className="font-display font-black leading-none select-none tracking-tighter"
+                      style={{
+                        fontSize: "10vw",
+                        color: "transparent",
+                        WebkitTextStroke: "1px var(--border-strong)",
+                        opacity: 0.25,
+                      }}
+                    >
                       RAIYAN
-                    </span>
-                    <p className="text-body-md text-text-secondary leading-relaxed max-w-xs">
-                      Shaping high-performance, premium web interfaces at Colan Infotech. Dedicated to precise frontend craft and animations.
-                    </p>
+                    </motion.span>
+
+                    <motion.p
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6, duration: 0.6 }}
+                      className="text-body-md text-text-secondary leading-relaxed max-w-xs"
+                    >
+                      Shaping high-performance, premium web interfaces at{" "}
+                      <span className="text-text-primary font-semibold">Colan Infotech</span>.
+                      Dedicated to precise frontend craft and meaningful motion.
+                    </motion.p>
                   </div>
 
                   <div className="flex flex-col gap-8 pb-12">
                     {/* Availability */}
-                    <div className="flex flex-col gap-1.5">
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.65, duration: 0.5 }}
+                      className="flex flex-col gap-1.5"
+                    >
                       <span className="text-[9px] font-mono uppercase tracking-widest text-text-muted">
                         Status
                       </span>
                       <span className="text-xs font-semibold text-accent flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                        <span className="relative flex h-2 w-2">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+                        </span>
                         AVAILABLE FOR FULL-TIME / FREELANCE
                       </span>
-                    </div>
+                    </motion.div>
 
                     {/* Clock */}
-                    <div className="flex flex-col gap-1">
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.7, duration: 0.5 }}
+                      className="flex flex-col gap-1"
+                    >
                       <span className="text-[9px] font-mono uppercase tracking-widest text-text-muted">
                         Pernambut, IN
                       </span>
-                      <span className="text-body-sm font-mono text-text-secondary">
+                      <span className="text-body-sm font-mono text-text-secondary tabular-nums">
                         {timeString || "00:00:00 IST"}
                       </span>
-                    </div>
+                    </motion.div>
                   </div>
                 </motion.div>
 
-                {/* Right Column: Navigation Links */}
+                {/* Right column: Nav links */}
                 <div className="lg:col-span-7 flex flex-col justify-between h-full pl-0 lg:pl-16">
-                  {/* Category Header */}
-                  <motion.span
+                  {/* Header */}
+                  <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="font-mono text-xs uppercase tracking-widest text-text-muted border-b border-border/30 pb-3"
+                    transition={{ delay: 0.28 }}
+                    className="flex items-center justify-between border-b border-border/30 pb-3"
                   >
-                    Index
-                  </motion.span>
+                    <span className="font-mono text-xs uppercase tracking-widest text-text-muted">
+                      Navigation
+                    </span>
+                    {/* ── Close button ────────────────────────────── */}
+                    <motion.button
+                      onClick={() => setIsOpen(false)}
+                      initial={{ opacity: 0, rotate: -90 }}
+                      animate={{ opacity: 1, rotate: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ delay: 0.5, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      whileHover={{ scale: 1.12, rotate: 90 }}
+                      whileTap={{ scale: 0.9 }}
+                      transition2={{ type: "spring", stiffness: 260, damping: 16 }}
+                      data-cursor="Close"
+                      aria-label="Close navigation"
+                      className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-text-muted hover:text-accent hover:border-accent/40 transition-colors duration-fast"
+                    >
+                      <X size={15} strokeWidth={1.5} />
+                    </motion.button>
+                  </motion.div>
 
-                  {/* Navigation List */}
-                  <nav className="flex flex-col gap-3 py-6 my-auto">
+                  {/* Nav items */}
+                  <nav className="flex flex-col gap-2 py-6 my-auto">
                     {navLinks.map((link, i) => (
-                      <div key={link.href} className="overflow-hidden">
-                        <motion.a
-                          href={link.href}
-                          custom={i}
-                          variants={linkVariants}
-                          initial="closed"
-                          animate="open"
-                          exit="closed"
-                          onClick={(e) => { e.preventDefault(); handleClick(link.href); }}
-                          data-cursor={link.label}
-                          className={`block font-display text-4xl md:text-6xl font-black uppercase tracking-tighter py-1 transition-all duration-fast ${
-                            activeSection === link.href.slice(1)
-                              ? "text-accent"
-                              : "text-text-primary hover:text-accent"
-                          }`}
-                          whileHover={{ x: 16 }}
-                          transition={{ type: "spring", stiffness: 220, damping: 18 }}
-                        >
-                          <span className="font-mono text-[0.4em] text-text-muted mr-4 align-middle font-medium">
-                            0{i + 1}
-                          </span>
-                          {link.label}
-                        </motion.a>
-                      </div>
+                      <NavLink
+                        key={link.href}
+                        link={link}
+                        index={i}
+                        activeSection={activeSection}
+                        onClick={handleClick}
+                      />
                     ))}
                   </nav>
 
-                  {/* Mobile-only Footer metadata */}
+                  {/* Mobile metadata */}
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -311,49 +425,37 @@ export default function Navbar() {
                     </div>
                   </motion.div>
 
-                  {/* Social links row */}
+                  {/* Social links */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
-                    transition={{ delay: 0.6 }}
+                    transition={{ delay: 0.62 }}
                     className="flex justify-between items-center border-t border-border/30 pt-6"
                   >
-                    <div className="flex gap-5">
-                      <MagneticWrap strength={0.3}>
-                        <a
-                          href="https://github.com/raiyanu"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-text-secondary hover:text-accent transition-colors p-1"
-                          data-cursor="GitHub"
-                        >
-                          <Github size={20} />
-                        </a>
-                      </MagneticWrap>
-                      <MagneticWrap strength={0.3}>
-                        <a
-                          href="https://linkedin.com/in/c-raiyan"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-text-secondary hover:text-accent transition-colors p-1"
-                          data-cursor="LinkedIn"
-                        >
-                          <Linkedin size={20} />
-                        </a>
-                      </MagneticWrap>
-                      <MagneticWrap strength={0.3}>
-                        <a
-                          href="mailto:raiyan.c.me@gmail.com"
-                          className="text-text-secondary hover:text-accent transition-colors p-1"
-                          data-cursor="Email"
-                        >
-                          <Mail size={20} />
-                        </a>
-                      </MagneticWrap>
+                    <div className="flex gap-4">
+                      {[
+                        { href: "https://github.com/raiyanu",       icon: Github,   label: "GitHub" },
+                        { href: "https://linkedin.com/in/c-raiyan", icon: Linkedin, label: "LinkedIn" },
+                        { href: "mailto:raiyan.c.me@gmail.com",     icon: Mail,     label: "Email" },
+                      ].map((s) => (
+                        <MagneticWrap key={s.label} strength={0.35}>
+                          <motion.a
+                            href={s.href}
+                            target={s.href.startsWith("http") ? "_blank" : undefined}
+                            rel="noreferrer"
+                            className="text-text-secondary hover:text-accent transition-colors p-1"
+                            data-cursor={s.label}
+                            whileHover={{ y: -3 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 12 }}
+                          >
+                            <s.icon size={19} strokeWidth={1.5} />
+                          </motion.a>
+                        </MagneticWrap>
+                      ))}
                     </div>
                     <span className="font-mono text-xs text-text-muted select-none">
-                      © 2026
+                      © {new Date().getFullYear()}
                     </span>
                   </motion.div>
                 </div>

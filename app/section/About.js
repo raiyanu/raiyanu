@@ -1,6 +1,6 @@
 "use client";
-import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useInView, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import ScrollReveal from "../components/ScrollReveal";
 import StaggerContainer, { StaggerItem } from "../components/StaggerContainer";
@@ -19,10 +19,55 @@ const philosophyLines = [
 ];
 
 const stats = [
-  { value: "2+",  label: "Years exp." },
-  { value: "10+", label: "Projects shipped" },
-  { value: "2",   label: "Companies" },
+  { to: 2,  suffix: "+", label: "Years exp." },
+  { to: 10, suffix: "+", label: "Projects shipped" },
+  { to: 2,  suffix: "",  label: "Companies" },
 ];
+
+/* ─── Count-Up Stat ───────────────────────────────────────────────── */
+
+function AnimatedStat({ to, suffix, label, delay = 0 }) {
+  const ref = useRef(null);
+  const [value, setValue] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const isInView = useInView(ref, { once: true, amount: 0.8 });
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start = null;
+    const duration = 1200;
+    const t = setTimeout(() => {
+      const step = (ts) => {
+        if (!start) start = ts;
+        const progress = Math.min((ts - start) / duration, 1);
+        setValue(Math.floor(progress * to));
+        if (progress < 1) requestAnimationFrame(step);
+        else setValue(to);
+      };
+      requestAnimationFrame(step);
+    }, delay);
+    return () => clearTimeout(t);
+  }, [isInView, to, delay]);
+
+  return (
+    <motion.div
+      ref={ref}
+      className="flex flex-col gap-1 cursor-default"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <motion.span
+        className="font-display font-black leading-none text-text-primary tabular-nums"
+        style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)" }}
+        animate={{ scale: hovered ? 1.06 : 1, color: hovered ? "var(--accent)" : "var(--text-primary)" }}
+        transition={{ type: "spring", stiffness: 300, damping: 18 }}
+      >
+        {value}{suffix}
+      </motion.span>
+      <span className="font-mono text-[8px] uppercase tracking-widest text-text-muted">{label}</span>
+    </motion.div>
+  );
+}
 
 /* ─── Rotating Badge ─────────────────────────────────────────────────────── */
 
@@ -156,15 +201,8 @@ export default function About() {
             {/* Stats */}
             <ScrollReveal delay={0.4}>
               <div className="flex gap-8 pt-4 border-t border-border/20">
-                {stats.map((stat) => (
-                  <div key={stat.label} className="flex flex-col gap-1">
-                    <span className="font-display font-black text-2xl text-text-primary leading-none">
-                      {stat.value}
-                    </span>
-                    <span className="font-mono text-[8px] uppercase tracking-widest text-text-muted">
-                      {stat.label}
-                    </span>
-                  </div>
+                {stats.map((stat, i) => (
+                  <AnimatedStat key={stat.label} {...stat} delay={i * 200} />
                 ))}
               </div>
             </ScrollReveal>

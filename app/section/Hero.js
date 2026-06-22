@@ -5,8 +5,9 @@ import {
   useTransform,
   useMotionValue,
   useSpring,
+  useInView,
 } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import {
   ArrowDown,
   Github,
@@ -16,6 +17,32 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import MagneticWrap from "../components/MagneticWrap";
+
+/* ─── Animated Count-Up Number ───────────────────────────────────────────── */
+
+function CountUp({ to, suffix = "", duration = 1400, delay = 0 }) {
+  const ref = useRef(null);
+  const [value, setValue] = useState(0);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start = null;
+    const t = setTimeout(() => {
+      const step = (timestamp) => {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        setValue(Math.floor(progress * to));
+        if (progress < 1) requestAnimationFrame(step);
+        else setValue(to);
+      };
+      requestAnimationFrame(step);
+    }, delay);
+    return () => clearTimeout(t);
+  }, [isInView, to, duration, delay]);
+
+  return <span ref={ref}>{value}{suffix}</span>;
+}
 
 /* ─── Animation variants ─────────────────────────────────────────────────── */
 
@@ -351,10 +378,13 @@ export default function Hero() {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1.8, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute bottom-8 right-6 md:right-[9%] z-10 hidden md:flex items-center gap-2 text-[8px] font-mono text-text-muted select-none"
+        className="absolute bottom-8 right-6 md:right-[9%] z-10 hidden md:flex items-center gap-3 text-[8px] font-mono text-text-muted select-none"
       >
         <span className="w-4 h-px bg-border" />
-        <span className="uppercase tracking-[0.2em]">2+ years exp · 10+ projects</span>
+        <span className="uppercase tracking-[0.2em]">
+          <CountUp to={2} suffix="+" duration={1200} delay={2000} /> yrs ·{" "}
+          <CountUp to={10} suffix="+" duration={1800} delay={2200} /> projects
+        </span>
         <span className="w-4 h-px bg-border" />
       </motion.div>
     </section>

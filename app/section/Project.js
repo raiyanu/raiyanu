@@ -324,7 +324,7 @@ export default function Project() {
           translateX: "-50%",
           translateY: "-50%",
         }}
-        className="absolute top-0 left-0 w-[310px] pointer-events-none z-20 overflow-hidden rounded-2xl border border-border bg-bg-surface shadow-surface-lg hidden lg:block"
+        className="absolute top-0 left-0 w-[310px] h-[190px] pointer-events-none z-20 overflow-hidden rounded-2xl border border-border bg-bg-surface shadow-surface-lg hidden lg:block"
         animate={
           hoveredIndex !== null
             ? { scale: 1, opacity: 1 }
@@ -336,7 +336,7 @@ export default function Project() {
         <div
           className="flex flex-col"
           style={{
-            transform: `translateY(-${(hoveredIndex ?? 0) * 100}%)`,
+            transform: `translateY(-${(hoveredIndex ?? 0) * 190}px)`,
             transition: "transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
