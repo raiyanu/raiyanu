@@ -12,6 +12,18 @@
       "sourceType": "github",
       "skillPath": "awwwards-landing-page/SKILL.md",
       "computedHash": "7b9fe005bd664db3d8e0cde36a3750958de3bdb8f8a8d2ec0116dbd0261e1fa4"
+    },
+    "premium-frontend-ui": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/premium-frontend-ui/SKILL.md",
+      "computedHash": "e7f3d02a0233beafdd6fe5335427388109b9699ebcdc6a8782a8bada2826d916"
+    },
+    "top-design": {
+      "source": "wondelai/skills",
+      "sourceType": "github",
+      "skillPath": "top-design/SKILL.md",
+      "computedHash": "079a2693cc0c64ed9ba278aa9d89f7b407b3c00be2f2ad2f3e079b9755088f88"
     }
   }
 }
