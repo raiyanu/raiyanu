@@ -2,19 +2,194 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   DESIGN SYSTEM — Warm Editorial Magazine
+   Stone, sand, cream, warm charcoal, desaturated gold
+   ============================================ */
+
 :root {
-	/* Primary Colors */
-	--primary-bg: #45496a; /* Dark Background, good for main sections */
-	--primary-content: #7d8bae; /* Content text, readable on light/dark backgrounds */
+  /* --- Backgrounds --- */
+  --bg-primary: #fcf9f5;
+  --bg-secondary: #f4eee3;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #faf6f0;
+  --bg-elevated: #ffffff;
 
-	/* Secondary Colors */
-	--secondary-bg: #f1b2b2; /* Soft Background, suitable for lighter sections or cards */
-	--secondary-content: #e8ccc7; /* Muted Content, pairs well with secondary background */
+  /* --- Text --- */
+  --text-primary: #1c1a17;
+  --text-secondary: #6b6357;
+  --text-muted: #9e9587;
+  --text-inverse: #fcf9f5;
 
-	/* Accent Colors */
-	--accent: #e5857b; /* Highlight color, good for buttons, links, and call-to-action elements */
+  /* --- Accents — desaturated gold --- */
+  --accent: #b5966d;
+  --accent-hover: #9c805a;
+  --accent-soft: rgba(181, 150, 109, 0.08);
+  --accent-secondary: #6e7a6e;
 
-	/* Additional Colors */
-	--light-bg: #ffffff; /* White background for clean sections */
-	--muted-content: #999999; /* Muted text for less emphasis, ideal for secondary text */
+  /* --- Borders & Dividers --- */
+  --border: rgba(28, 26, 23, 0.07);
+  --border-strong: rgba(28, 26, 23, 0.12);
+  --border-accent: rgba(181, 150, 109, 0.2);
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 1px 3px rgba(28, 26, 23, 0.03);
+  --shadow-md: 0 4px 20px rgba(28, 26, 23, 0.05);
+  --shadow-lg: 0 12px 40px rgba(28, 26, 23, 0.07);
+
+  /* --- Glass --- */
+  --glass-bg: rgba(252, 249, 245, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-blur: 16px;
+
+  /* --- Spacing --- */
+  --nav-height: 72px;
+  --section-padding: clamp(6rem, 14vw, 12rem);
+  --content-max-width: 1200px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-normal: 400ms;
+}
+
+.dark {
+  /* --- Backgrounds --- */
+  --bg-primary: #0d0c0a;
+  --bg-secondary: #171512;
+  --bg-surface: #1f1c19;
+  --bg-surface-hover: #26231e;
+  --bg-elevated: #26231e;
+
+  /* --- Text --- */
+  --text-primary: #f5efe6;
+  --text-secondary: #b0a698;
+  --text-muted: #6e675c;
+  --text-inverse: #0d0c0a;
+
+  /* --- Accents --- */
+  --accent: #b5966d;
+  --accent-hover: #cfa87b;
+  --accent-soft: rgba(181, 150, 109, 0.1);
+  --accent-secondary: #829182;
+
+  /* --- Borders & Dividers --- */
+  --border: rgba(245, 239, 230, 0.06);
+  --border-strong: rgba(245, 239, 230, 0.12);
+  --border-accent: rgba(181, 150, 109, 0.25);
+
+  /* --- Glass --- */
+  --glass-bg: rgba(13, 12, 10, 0.85);
+  --glass-border: rgba(245, 239, 230, 0.04);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+* {
+  box-sizing: border-box;
+  cursor: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color var(--duration-normal) var(--ease-out-expo),
+              color var(--duration-normal) var(--ease-out-expo);
+  overflow-x: hidden;
+}
+
+/* Hide default cursor on desktop */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* Selection */
+::selection {
+  background: var(--accent);
+  color: var(--text-inverse);
+}
+
+/* Noise overlay */
+.noise::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.6;
+}
+
+/* ============================================
+   UTILITY & PERSPECTIVE
+   ============================================ */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* 3D Perspective container */
+.perspective-3d {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* Giant outline typography */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--text-primary);
+}
+
+.text-outline-accent {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--accent);
+}
+
+/* Custom architectural line animation */
+.line-draw {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw 2s var(--ease-out-expo) forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Custom transitions */
+.transition-editorial {
+  transition: all 0.6s var(--ease-out-expo);
+}
+
+/* Touch device cursor fallback override */
+@media (hover: none) and (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
 }

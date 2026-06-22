@@ -1,84 +1,84 @@
 "use client";
 import { useEffect, useState } from "react";
-import { delay, easeInOut, motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
-export default function LoadPreview({ isLoading }) {
-    const loadWait = 3;
-    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+export default function LoadPreview({ onComplete }) {
+  const [counter, setCounter] = useState(0);
+  const [isExiting, setIsExiting] = useState(false);
 
-    useEffect(() => {
-        setDimensions({ width: window.innerWidth, height: window.innerHeight });
-        return () => {
-            window.scrollTo(0, 0);
-        };
-    }, []);
-    let borderRadius = `${dimensions.width / 2}px ${dimensions.width / 3}px`;
-    const variants = {
-        initial: {
-            y: 0,
-            borderRadius: "0%",
-        },
-        exit: {
-            y: "-100vh",
-            borderBottomRightRadius: borderRadius,
-            borderBottomLeftRadius: borderRadius,
-            transition: {
-                duration: 1.5,
-                delay: loadWait, // delay the exit animation by Ns
-                ease: easeInOut,
-            },
-        },
-    };
-    const DotsVariants = {
-        initial: {
-            opacity: 1,
-        },
-        exit: {
-            opacity: 0,
-            transition: {
-                duration: 1.5,
-                delay: loadWait - .75,
-                ease: easeInOut,
-            },
-        },
-    };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCounter((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        // Accelerating counter
+        const increment = prev < 70 ? 3 : prev < 90 ? 2 : 1;
+        return Math.min(prev + increment, 100);
+      });
+    }, 30);
 
-    const dotVariants = {
-        bounce: (delay) => ({
-            y: ["-20px", "0px", "-20px"],
-            fill: ["#fff", "transparent", "#fff"],
-            transition: {
-                duration: 1,
-                delay: delay * 0.2,
-                ease: easeInOut,
-                repeat: Infinity,
-            }
-        })
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (counter >= 100) {
+      const timer = setTimeout(() => {
+        setIsExiting(true);
+        setTimeout(() => {
+          if (onComplete) onComplete();
+        }, 800);
+      }, 300);
+      return () => clearTimeout(timer);
     }
-    return (
-        <motion.div
-            variants={variants}
-            animate={isLoading ? "initial" : "exit"}
-            initial="initial"
-            exit="exit"
-            className=" flex items-center justify-center fixed h-screen w-screen top-0 left-0 bg-black z-50 text-white font-sans font-bold text-2xl"
+  }, [counter, onComplete]);
+
+  return (
+    <motion.div
+      initial={{ y: 0 }}
+      animate={isExiting ? { y: "-100%" } : { y: 0 }}
+      transition={{
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className="fixed inset-0 z-50 bg-bg-primary flex items-center justify-center"
+      style={{
+        borderBottomLeftRadius: isExiting ? "50% 15%" : "0%",
+        borderBottomRightRadius: isExiting ? "50% 15%" : "0%",
+      }}
+    >
+      <div className="relative flex flex-col items-center">
+        {/* Name */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display font-bold text-4xl sm:text-5xl text-text-primary mb-8 tracking-tight"
         >
-            <motion.svg
-                variants={DotsVariants}
-                xmlns="http://www.w3.org/2000/svg"
-                width="100"
-                height="100"
-                viewBox="0 0 100 100"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinejoin="round"
-                className="lucide lucide-ellipsis flex items-cenet justify-center gap-12"
-            >
-                <motion.circle animate={"bounce"} variants={dotVariants} custom={2} cx="30" cy="50" r="4" />
-                <motion.circle animate={"bounce"} variants={dotVariants} custom={1.5} cx="60" cy="50" r="4" />
-                <motion.circle animate={"bounce"} variants={dotVariants} custom={1} cx="90" cy="50" r="4" />
-            </motion.svg>
-        </motion.div>
-    );
+          R<span className="text-accent">.</span>
+        </motion.h1>
+
+        {/* Progress bar */}
+        <div className="w-48 h-[2px] bg-border rounded-full overflow-hidden">
+          <motion.div
+            className="h-full bg-accent rounded-full"
+            initial={{ width: "0%" }}
+            animate={{ width: `${counter}%` }}
+            transition={{ duration: 0.1, ease: "linear" }}
+          />
+        </div>
+
+        {/* Counter */}
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="mt-4 text-label font-mono text-text-muted tracking-widest"
+        >
+          {counter}%
+        </motion.span>
+      </div>
+    </motion.div>
+  );
 }
