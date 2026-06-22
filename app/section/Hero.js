@@ -137,10 +137,10 @@ export default function Hero() {
           <div className="lg:col-span-9 flex flex-col gap-10">
             <div className="flex flex-col border-b border-border/30 pb-10">
               <h1 className="font-display font-black leading-[0.85] tracking-tighter" style={{ perspective: "1000px" }}>
-                <span className="block text-[13vw] sm:text-[11vw] lg:text-[10vw] uppercase text-text-primary whitespace-nowrap">
+                <span className="block text-[13vw] sm:text-[11vw] lg:text-[7vw] uppercase text-text-primary whitespace-nowrap">
                   <AnimatedName text={firstName} startIndex={0} />
                 </span>
-                <span className="block text-[13vw] sm:text-[11vw] lg:text-[10vw] uppercase text-outline ml-[8%] mt-2 whitespace-nowrap">
+                <span className="block text-[13vw] sm:text-[11vw] lg:text-[7vw] uppercase text-outline ml-[8%] mt-2 whitespace-nowrap">
                   <AnimatedName text={lastName} startIndex={firstName.length} />
                 </span>
               </h1>

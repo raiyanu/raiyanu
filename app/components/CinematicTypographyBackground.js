@@ -42,7 +42,7 @@ function FloatingWord({ word, scrollYProgress }) {
         position: "absolute",
         willChange: "transform",
       }}
-      className="font-display font-black text-outline text-[15vw] md:text-[12vw] lg:text-[10vw] leading-none select-none pointer-events-none whitespace-nowrap tracking-tighter opacity-[0.06] dark:opacity-[0.04]"
+      className="font-display font-black text-outline text-[15vw] md:text-[12vw] lg:text-[10vw] leading-none select-none pointer-events-none whitespace-nowrap tracking-tighter opacity-[0.06] dark:opacity-[0.1]"
     >
       {word.text}
     </motion.div>
