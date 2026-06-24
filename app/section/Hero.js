@@ -51,7 +51,9 @@ const charVariantDown = {
     opacity: 0,
     y: 110,
     rotateX: 72,
-    filter: "blur(14px)",
+    // filter: "blur(14px)",
+    opacity: 0,
+    scale: 0.95
   },
   visible: (i) => ({
     opacity: 1,
