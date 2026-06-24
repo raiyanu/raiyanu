@@ -1,90 +1,56 @@
 "use client";
-import { createContext, useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import Navbar from "./components/Navbar";
-import Hero from "./section/Hero";
 import LenisScroll from "./components/LenisScroll";
-
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import About from "./section/About";
-import Cursor from "./components/Cursor";
 import LoadPreview from "./components/LoadPreview";
-import HeroImage from "./components/HeroImage";
+import Footer from "./components/Footer";
+import Cursor from "./components/Cursor";
+import CinematicTypographyBackground from "./components/CinematicTypographyBackground";
+import Hero from "./section/Hero";
+import About from "./section/About";
+import Experience from "./section/Experience";
 import Project from "./section/Project";
+import Skills from "./section/Skills";
+import Contact from "./section/Contact";
 
 export default function Home() {
-  const [isLoading, setIsloading] = useState(true);
-  const [hideBlob, setHideBlob] = useState(false);
-  const spanref = useRef(null);
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-  useEffect(() => {
-    console.log("width", width);
-    const LoadingCompleteHandler = () => {
-      setIsloading(false);
-    };
-    setTimeout(LoadingCompleteHandler, 7000);
-    return () => {
-      window.scrollTo(0, 0);
-    };
-  }, [scrollYProgress]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
-  const filter = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["brightness(100%)", "brightness(50%)"]
-  );
-  const width = useTransform(scrollYProgress, [0, 1], ["40%", "100%"]);
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <>
-      {isLoading && (
-        <AnimatePresence mode="wait" isLoading={isLoading}>
-          <LoadPreview />
-        </AnimatePresence>
-      )}
-      <BlobContextProvider>
+      {/* Loading Screen */}
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <LoadPreview onComplete={() => setIsLoading(false)} />
+        )}
+      </AnimatePresence>
 
-        <Cursor hideBlob={hideBlob}>
+      {/* Main Content */}
+      {!isLoading && (
+        <Cursor>
           <LenisScroll>
-            <div className=" bg-slate-100 min-h-screen">
-              <Navbar />
-              <div className="flex *:flex-1 h-fit flex-col">
-                <main
-                  className="bg-slate-400 flex flex-col lg:flex-row relative"
-                  ref={containerRef}
-                >
-                  <HeroImage util={{ scale, filter }} />
-                  <motion.div
-                    style={{ width }}
-                    className=" mx-auto max-lg:!w-full  sticky text-white flex-shrink-0 basis-auto grow snap-y"
-                  >
-                    <Hero
-                      className="snap-start h-screen"
-                      blob={{ hideBlob, setHideBlob }}
-                    />
-                    <About className="snap-start h-screen" />
-                  </motion.div>
+            <div className="noise relative min-h-screen overflow-hidden">
+              {/* Cinematic 3D Camera Flythrough Typography Background */}
+              <CinematicTypographyBackground />
+              
+              {/* Foreground Content */}
+              <div className="relative z-10">
+                <Navbar />
+                <main>
+                  <Hero />
+                  <About />
+                  <Experience />
+                  <Project />
+                  <Skills />
+                  <Contact />
                 </main>
-                <Project />
+                <Footer />
               </div>
-              {/* <Hero /> */}
             </div>
           </LenisScroll>
         </Cursor>
-      </BlobContextProvider>
-
+      )}
     </>
-  );
-}
-export const BlobContext = createContext();
-
-export function BlobContextProvider({ children }) {
-  const [hideBlob, setHideBlob] = useState(false);
-  return (
-    <BlobContext.Provider value={{ hideBlob, setHideBlob }}>
-      {children}
-    </BlobContext.Provider>
   );
 }

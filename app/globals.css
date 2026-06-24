@@ -2,19 +2,290 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   DESIGN SYSTEM — Premium Editorial Dark
+   Deep charcoal · Warm stone · Accent gold
+   ============================================ */
+
 :root {
-	/* Primary Colors */
-	--primary-bg: #45496a; /* Dark Background, good for main sections */
-	--primary-content: #7d8bae; /* Content text, readable on light/dark backgrounds */
+  /* --- Backgrounds --- */
+  --bg-primary: #faf8f5;
+  --bg-secondary: #f2ede3;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #f7f3ec;
+  --bg-elevated: #ffffff;
+  --bg-inverted: #080706;
 
-	/* Secondary Colors */
-	--secondary-bg: #f1b2b2; /* Soft Background, suitable for lighter sections or cards */
-	--secondary-content: #e8ccc7; /* Muted Content, pairs well with secondary background */
+  /* --- Text --- */
+  --text-primary: #191714;
+  --text-secondary: #65604f;
+  --text-muted: #9e9587;
+  --text-inverse: #f5f0e8;
 
-	/* Accent Colors */
-	--accent: #e5857b; /* Highlight color, good for buttons, links, and call-to-action elements */
+  /* --- Accents — desaturated warm gold --- */
+  --accent: #b5966d;
+  --accent-hover: #9c7f58;
+  --accent-soft: rgba(181, 150, 109, 0.08);
+  --accent-secondary: #7a8a7a;
 
-	/* Additional Colors */
-	--light-bg: #ffffff; /* White background for clean sections */
-	--muted-content: #999999; /* Muted text for less emphasis, ideal for secondary text */
+  /* --- Borders & Dividers --- */
+  --border: rgba(25, 23, 20, 0.08);
+  --border-strong: rgba(25, 23, 20, 0.15);
+  --border-accent: rgba(181, 150, 109, 0.22);
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 1px 3px rgba(25, 23, 20, 0.04);
+  --shadow-md: 0 4px 24px rgba(25, 23, 20, 0.06);
+  --shadow-lg: 0 16px 48px rgba(25, 23, 20, 0.08);
+
+  /* --- Glass --- */
+  --glass-bg: rgba(250, 248, 245, 0.9);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-blur: 20px;
+
+  /* --- Layout --- */
+  --nav-height: 72px;
+  --section-padding: clamp(7rem, 15vw, 14rem);
+  --content-max-width: 1280px;
+
+  /* --- Easing --- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-expo: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+
+  /* --- Timing --- */
+  --duration-fast: 150ms;
+  --duration-normal: 400ms;
+  --duration-slow: 700ms;
+  --duration-slower: 1100ms;
+}
+
+.dark {
+  /* --- Backgrounds --- */
+  --bg-primary: #080706;
+  --bg-secondary: #111009;
+  --bg-surface: #1a1814;
+  --bg-surface-hover: #211f1a;
+  --bg-elevated: #211f1a;
+  --bg-inverted: #f5f0e8;
+
+  /* --- Text --- */
+  --text-primary: #f0e9dc;
+  --text-secondary: #a89f92;
+  --text-muted: #6b6357;
+  --text-inverse: #080706;
+
+  /* --- Accents --- */
+  --accent: #c4a677;
+  --accent-hover: #d4b888;
+  --accent-soft: rgba(196, 166, 119, 0.1);
+  --accent-secondary: #8a9a8a;
+
+  /* --- Borders --- */
+  --border: rgba(240, 233, 220, 0.07);
+  --border-strong: rgba(240, 233, 220, 0.14);
+  --border-accent: rgba(196, 166, 119, 0.28);
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.25);
+
+  /* --- Glass --- */
+  --glass-bg: rgba(8, 7, 6, 0.92);
+  --glass-border: rgba(240, 233, 220, 0.05);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color var(--duration-slow) var(--ease-out-expo),
+              color var(--duration-slow) var(--ease-out-expo);
+  overflow-x: hidden;
+}
+
+/* Hide default cursor on desktop */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* Touch device cursor fallback */
+@media (hover: none) and (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+}
+
+/* Thin accent scrollbar */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* Selection */
+::selection {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+/* ============================================
+   NOISE OVERLAY
+   ============================================ */
+.noise::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 997;
+  opacity: 0.45;
+}
+
+/* ============================================
+   GLASS UTILITY
+   ============================================ */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* ============================================
+   3D PERSPECTIVE
+   ============================================ */
+.perspective-3d {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 18s linear infinite;
+}
+
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 30s) linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse var(--marquee-duration, 30s) linear infinite;
+}
+
+/* ============================================
+   SECTION BACKGROUND NUMBER
+   Architectural faint large numerals
+   ============================================ */
+.section-bg-number {
+  position: absolute;
+  font-family: var(--font-geist-sans), 'Syne', system-ui, sans-serif;
+  font-size: clamp(7rem, 20vw, 26rem);
+  font-weight: 900;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--border-strong);
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.04em;
+  opacity: 0.28;
+}
+
+/* ============================================
+   EDITORIAL LINE
+   ============================================ */
+.editorial-line {
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+}
+
+/* ============================================
+   TRANSITION HELPERS
+   ============================================ */
+.transition-editorial {
+  transition: all 0.6s var(--ease-out-expo);
+}
+
+/* ============================================
+   @layer utilities — Override-safe classes
+   ============================================ */
+@layer utilities {
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--text-primary);
+  }
+
+  .text-outline-muted {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--text-muted);
+  }
+
+  .text-outline-accent {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--accent);
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
